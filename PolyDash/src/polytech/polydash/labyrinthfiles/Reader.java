@@ -2,6 +2,7 @@ package polytech.polydash.labyrinthfiles;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -16,7 +17,7 @@ import polytech.polydash.draughtboardmanagement.Character;
 
 
 public class Reader {
-	File level;
+	private File level;
 	public Reader(String Filepath){
 		this.level = new File(Filepath);
 	}
@@ -26,7 +27,7 @@ public class Reader {
 		String line;
 		int index=0;
 		Block[][] dammier = new Block[20][20];
-		BufferedReader readwithBuffer = new BufferedReader(new FileReader(this.level));
+		BufferedReader readwithBuffer = openFile(this.level);
 		while ((line = readwithBuffer.readLine()) != null && index<20) {
 			try {
 				line = line.replaceAll(" ", ""); // A revoir 
@@ -34,9 +35,10 @@ public class Reader {
 					dammier[index][i]= getInstanceBlock(line.charAt(i));
 				}
 				index++;
-			} catch (Exception error) { //end try
-				JOptionPane.showMessageDialog(null, "Is not the right format");
+			} catch (UndefineCharBlockException error) { //end try
+				JOptionPane.showMessageDialog(null, "Is not the right format for" +this.level.getAbsolutePath());
 				readwithBuffer.close();
+				System.out.println(error.getMessage());
 				return null;
 			}
 		}
@@ -44,8 +46,18 @@ public class Reader {
 		return dammier;
 	}
 	
+		private BufferedReader openFile(File f){
+			//TODO eviter le return null
+			try {
+				return new BufferedReader(new FileReader(this.level));
+			} catch (FileNotFoundException e) {
+				JOptionPane.showMessageDialog(null, "File not found in .../PolyDash/level/");
+				e.printStackTrace();
+				return null; 
+			}
+		}
 
-		public Block getInstanceBlock(char c) throws UndefineCharBlockException {
+		private Block getInstanceBlock(char c) throws UndefineCharBlockException {
 			switch (c)
 			{
 			  case '_': return new BlockEmpty();
