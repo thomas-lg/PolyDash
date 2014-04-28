@@ -15,23 +15,29 @@ import polytech.polydash.draughtboardmanagement.BlockGem;
 import polytech.polydash.draughtboardmanagement.BlockMovable;
 import polytech.polydash.draughtboardmanagement.Character;
 
-
+/**
+ * 
+ * @author Florian Bonniec
+ * @worker Florian Bonniec, Antoine Pasquier
+ *
+ */
 public class Reader {
+	private final int damierSize = 20;
 	private File level;
 	public Reader(String Filepath){
 		this.level = new File(Filepath);
 	}
-	
-	
+
+
 	public Block[][] readFile() throws IOException {
 		String line;
 		int index=0;
-		Block[][] dammier = new Block[20][20];
+		Block[][] dammier = new Block[damierSize][damierSize];
 		BufferedReader readwithBuffer = openFile(this.level);
-		while ((line = readwithBuffer.readLine()) != null && index<20) {
+		while ((line = readwithBuffer.readLine()) != null && index<damierSize) {
 			try {
 				line = line.replaceAll(" ", ""); // A revoir 
-				for(int i=0;i<20;i++){
+				for(int i=0;i<damierSize;i++){
 					dammier[index][i]= getInstanceBlock(line.charAt(i));
 				}
 				index++;
@@ -45,29 +51,28 @@ public class Reader {
 		readwithBuffer.close();
 		return dammier;
 	}
-	
-		private BufferedReader openFile(File f){
-			//TODO eviter le return null
-			try {
-				return new BufferedReader(new FileReader(this.level));
-			} catch (FileNotFoundException e) {
-				JOptionPane.showMessageDialog(null, "File not found in .../PolyDash/level/");
-				e.printStackTrace();
-				return null; 
-			}
-		}
 
-		private Block getInstanceBlock(char c) throws UndefineCharBlockException {
-			switch (c)
-			{
-			  case '_': return new BlockEmpty();
-			  case '#': return new BlockFix();
-			  case 'O': return new BlockMovable();
-			  case 'G': return new BlockGem();
-			  case 'P': return new Character();
-			  default : throw new UndefineCharBlockException();
-			}
+	private BufferedReader openFile(File f){
+		try {
+			return new BufferedReader(new FileReader(this.level));
+		} catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(null, "File not found in .../PolyDash/level/");
+			e.printStackTrace();
+			return null; 
 		}
-	
+	}
+
+	private Block getInstanceBlock(char c) throws UndefineCharBlockException {
+		switch (c)
+		{
+		case '_': return new BlockEmpty();
+		case '#': return new BlockFix();
+		case 'O': return new BlockMovable();
+		case 'G': return new BlockGem();
+		case 'P': return new Character();
+		default : throw new UndefineCharBlockException();
+		}
+	}
+
 
 }

@@ -9,7 +9,7 @@ public class MainTest {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		Reader r = new Reader("C:\\Users\\Florian\\git\\PolyDash2\\PolyDash\\src\\pDashFile\\level.txt");
+		Reader r = new Reader(".."+File.separator+"PolyDash"+File.separator+"level"+File.separator+"level.txt");
 		Block[][] dammier = new Block[20][20];
 		dammier = r.readFile();
 		System.out.println("Debut Dammier");
