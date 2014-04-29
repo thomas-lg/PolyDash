@@ -65,11 +65,11 @@ public class Reader {
 	private Block getInstanceBlock(char c) throws UndefineCharBlockException {
 		switch (c)
 		{
-		case '_': return new BlockEmpty();
-		case '#': return new BlockFix();
-		case 'O': return new BlockMovable();
-		case 'G': return new BlockGem();
-		case 'P': return new Character();
+		case '_': return new BlockEmpty(".."+File.separator+"PolyDash"+File.separator+"Ressources"+File.separator+"Block_Vide.png");
+		case '#': return new BlockFix(".."+File.separator+"PolyDash"+File.separator+"Ressources"+File.separator+"block.png");
+		case 'O': return new BlockMovable(".."+File.separator+"PolyDash"+File.separator+"Ressources"+File.separator+"BlockMobile.png");
+		case 'G': return new BlockGem(".."+File.separator+"PolyDash"+File.separator+"Ressources"+File.separator+"ruby.png");
+		case 'P': return new Character(".."+File.separator+"PolyDash"+File.separator+"Ressources"+File.separator+"Miner.png");
 		default : throw new UndefineCharBlockException();
 		}
 	}

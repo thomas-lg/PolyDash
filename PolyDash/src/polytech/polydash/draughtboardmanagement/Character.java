@@ -3,7 +3,8 @@ package polytech.polydash.draughtboardmanagement;
 public class Character extends Block {
 	private boolean alive;
 	
-	public Character(){
+	public Character(String file){
+		super(file);
 		this.setAlive(true);
 	}
 	@Override

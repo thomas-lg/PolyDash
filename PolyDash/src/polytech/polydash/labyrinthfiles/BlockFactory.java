@@ -18,7 +18,7 @@ public class BlockFactory {
 	 * @return un Block
 	 * @throws UndefineCharBlockException 
 	 */
-	public Block getInstanceBlock(char c) throws UndefineCharBlockException {
+	/*public Block getInstanceBlock(char c) throws UndefineCharBlockException {
 		switch (c)
 		{
 		  case '_': return new BlockEmpty();
@@ -28,5 +28,5 @@ public class BlockFactory {
 		  case 'P': return new Character();
 		  default : throw new UndefineCharBlockException();
 		}
-	}
+	}*/
 }
