@@ -28,7 +28,12 @@ public class Reader {
 		this.level = new File(Filepath);
 	}
 
-
+/**
+ * Permet de transcrire un fichier correctement formaté en un dammier de 20*20 ( le plateau de jeu)
+ * Retourne un message d'erreur si le fichier n'est pas au bon format.
+ * @return le plateau de jeu matrice de 20*20
+ * @throws IOException
+ */
 	public Block[][] readFile() throws IOException {
 		String line;
 		int index=0;
@@ -51,7 +56,12 @@ public class Reader {
 		readwithBuffer.close();
 		return dammier;
 	}
-
+/**
+ * Permet d'ouvrir un fichier, retourne un message à l'utilisateur si le fichier est introuvable
+ * 
+ * @param f correspond au fichier à ouvrir  
+ * @return BufferedReader qui permet de lire le fichier ligne par ligne
+ */
 	private BufferedReader openFile(File f){
 		try {
 			return new BufferedReader(new FileReader(this.level));
@@ -61,6 +71,13 @@ public class Reader {
 			return null; 
 		}
 	}
+	
+	/**
+	 * 
+	 * @param caractére identifiant le block demandé
+	 * @return le block souhaité
+	 * @throws UndefineCharBlockException (caractére inconnue)
+	 */
 
 	private Block getInstanceBlock(char c) throws UndefineCharBlockException {
 		switch (c)
