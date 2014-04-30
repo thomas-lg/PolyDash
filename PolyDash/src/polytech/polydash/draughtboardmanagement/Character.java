@@ -2,6 +2,7 @@ package polytech.polydash.draughtboardmanagement;
 
 public class Character extends Block {
 	private boolean alive;
+	private int moves=0;
 	
 	public Character(String file){
 		super(file);
@@ -16,6 +17,11 @@ public class Character extends Block {
 	}
 	public void setAlive(boolean alive) {
 		this.alive = alive;
+	}
+
+	public int getMoves() 
+	{
+		return moves;
 	}
 	
 
