@@ -1,6 +1,6 @@
 package polytech.polydash.draughtboardmanagement;
 
-public class BlockGem extends Block {
+public class BlockGem extends BlockSpecial {
 
 	public BlockGem(String file) {
 		super(file);

@@ -1,6 +1,6 @@
 package polytech.polydash.draughtboardmanagement;
 
-public class BlockMovable extends Block {
+public class BlockMovable extends BlockSpecial {
 
 	public BlockMovable(String file) {
 		super(file);
