@@ -14,6 +14,7 @@ import polytech.polydash.draughtboardmanagement.BlockFix;
 import polytech.polydash.draughtboardmanagement.BlockGem;
 import polytech.polydash.draughtboardmanagement.BlockMovable;
 import polytech.polydash.draughtboardmanagement.Character;
+import polytech.polydash.main.Polydash;
 
 /**
  * 
@@ -74,7 +75,7 @@ public class Reader {
 	
 	/**
 	 * 
-	 * @param caractére identifiant le block demandé
+	 * @param caractere identifiant le block demandé
 	 * @return le block souhaité
 	 * @throws UndefineCharBlockException (caractére inconnue)
 	 */
@@ -82,11 +83,11 @@ public class Reader {
 	private Block getInstanceBlock(char c) throws UndefineCharBlockException {
 		switch (c)
 		{
-		case '_': return new BlockEmpty(".."+File.separator+"PolyDash"+File.separator+"Ressources"+File.separator+"Block_Vide.png");
-		case '#': return new BlockFix(".."+File.separator+"PolyDash"+File.separator+"Ressources"+File.separator+"block.png");
-		case 'O': return new BlockMovable(".."+File.separator+"PolyDash"+File.separator+"Ressources"+File.separator+"BlockMobile.png");
-		case 'G': return new BlockGem(".."+File.separator+"PolyDash"+File.separator+"Ressources"+File.separator+"ruby.png");
-		case 'P': return new Character(".."+File.separator+"PolyDash"+File.separator+"Ressources"+File.separator+"Miner.png");
+		case '_': return new BlockEmpty(Polydash.res.getTexture("empty"));
+		case '#': return new BlockFix(Polydash.res.getTexture("fix_bloc"));
+		case 'O': return new BlockMovable(Polydash.res.getTexture("mobile_bloc"));
+		case 'G': return new BlockGem(Polydash.res.getTexture("ruby"));
+		case 'P': return new Character(Polydash.res.getTexture("miner"));
 		default : throw new UndefineCharBlockException();
 		}
 	}

@@ -1,9 +1,11 @@
 package polytech.polydash.draughtboardmanagement;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public class BlockMovable extends BlockSpecial {
 
-	public BlockMovable(String file) {
-		super(file);
+	public BlockMovable(Texture text) {
+		super(text);
 		// TODO Auto-generated constructor stub
 	}
 

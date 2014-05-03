@@ -1,8 +1,12 @@
 package polytech.polydash.gameStateManager;
 
-import java.io.File;
-
-import polytech.polydash.draughtboardmanagement.*;
+import polytech.polydash.draughtboardmanagement.Block;
+import polytech.polydash.draughtboardmanagement.BlockComposite;
+import polytech.polydash.draughtboardmanagement.BlockEmpty;
+import polytech.polydash.draughtboardmanagement.BlockGem;
+import polytech.polydash.draughtboardmanagement.BlockMovable;
+import polytech.polydash.draughtboardmanagement.BlockSpecial;
+import polytech.polydash.main.Polydash;
 
 public class GameState {
 
@@ -51,12 +55,11 @@ public class GameState {
 							//System.out.println(this.gameState[i][j].toString());
 							//System.out.println(this.gameState[i+1][j].toString());
 						}else if(this.gameState[i+1][j] instanceof BlockGem){
-							BlockComposite tmp = new BlockComposite(".."+File.separator+"PolyDash"+File.separator+"Ressources"+File.separator+"BlockMobile.png"); // TODO image a modifier
+							BlockComposite tmp = new BlockComposite(Polydash.res.getTexture("mobile_bloc")); // TODO image a modifier
 							tmp.addBlock((BlockSpecial)this.gameState[i+1][j]);
 							tmp.addBlock((BlockSpecial)this.gameState[i][j]);
 							this.gameState[i+1][j] = tmp;
-							this.gameState[i+1][j] = new BlockEmpty(".."+File.separator+"PolyDash"+File.separator+"Ressources"+File.separator+"Block_Vide.png");
-// TODO image a modifier
+							this.gameState[i+1][j] = new BlockEmpty(Polydash.res.getTexture("empty"));// TODO image a modifier
 						}
 					}
 				//}

@@ -1,9 +1,11 @@
 package polytech.polydash.draughtboardmanagement;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public class BlockEmpty extends Block {
 
-	public BlockEmpty(String file) {
-		super(file);
+	public BlockEmpty(Texture text) {
+		super(text);
 		// TODO Auto-generated constructor stub
 	}
 

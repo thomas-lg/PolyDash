@@ -1,24 +1,21 @@
 package polytech.polydash.draughtboardmanagement;
 
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
+import com.badlogic.gdx.graphics.Texture;
 
 public abstract class Block {
 	
-	private Image img;
+	private Texture texture;
 	
-	public Block(String file){
-		setImg(file);
+	public Block(Texture text){
+		this.texture = text;
 	}
 
-	public Image getImg() {
-		return img;
+	public Texture getImg() {
+		return texture;
 	}
-
-	public void setImg(String file) {
-		ImageIcon img = new ImageIcon(file);
-		this.img = img.getImage();
+	
+	public void setImg(Texture text) {
+		this.texture = text;
 	}
 	
 

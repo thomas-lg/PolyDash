@@ -1,11 +1,13 @@
 package polytech.polydash.draughtboardmanagement;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public class Character extends Block {
 	private boolean alive;
 	private int moves=567;
 	
-	public Character(String file){
-		super(file);
+	public Character(Texture text){
+		super(text);
 		this.setAlive(true);
 	}
 	@Override

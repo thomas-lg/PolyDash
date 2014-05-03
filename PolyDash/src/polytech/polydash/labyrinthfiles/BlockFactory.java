@@ -1,7 +1,5 @@
 package polytech.polydash.labyrinthfiles;
 
-import polytech.polydash.draughtboardmanagement.*;
-import polytech.polydash.draughtboardmanagement.Character;
 
 public class BlockFactory {
 	

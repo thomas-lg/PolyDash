@@ -1,13 +1,13 @@
 package polytech.polydash.draughtboardmanagement;
 
-import java.util.Arrays;
+import com.badlogic.gdx.graphics.Texture;
 
 public class BlockComposite extends BlockSpecial{
 	private BlockSpecial[] blockComposite;
 	private final int nbComposite = 2;
 
-	public BlockComposite(String file) {
-		super(file);
+	public BlockComposite(Texture text) {
+		super(text);
 		this.blockComposite = new BlockSpecial[nbComposite];
 	}
 	
