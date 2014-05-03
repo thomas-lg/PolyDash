@@ -1,5 +1,11 @@
 package polytech.polydash.main;
 
+import java.io.File;
+
+import polytech.polydash.draughtboardmanagement.Character;
+import polytech.polydash.labyrinthfiles.Reader;
+import polytech.polydash.vues.HUD;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -14,12 +20,14 @@ public class Game implements ApplicationListener{
 	public static final int SCALE = 2;
 	
 	
-	
+	private SpriteBatch sb;
 	
 	@Override
 	public void create() {
-		// TODO Auto-generated method stub
-		
+		Character c = new Character(".."+File.separator+"PolyDash"+File.separator+"Ressources"+File.separator+"Miner.png");
+		HUD hud = new HUD(c);
+		sb = new SpriteBatch();
+		hud.render(sb);
 	}
 
 	@Override
@@ -36,7 +44,7 @@ public class Game implements ApplicationListener{
 
 	@Override
 	public void render() {
-		// TODO Auto-generated method stub
+
 		
 	}
 
