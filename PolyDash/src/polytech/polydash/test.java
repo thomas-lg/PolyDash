@@ -20,7 +20,10 @@ public class test {
 		printDammier(gs.getGameState());
 		gs.leftRotation();
 		printDammier(gs.getGameState());
-		
+		gs.checkGameState();
+		printDammier(gs.getGameState());
+		//gs.rightRotation();
+		//printDammier(gs.getGameState());
 	}
 	
 	public static void printDammier(Block[][] dammier){

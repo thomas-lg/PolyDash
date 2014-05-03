@@ -1,5 +1,7 @@
 package polytech.polydash.draughtboardmanagement;
 
+import java.util.Arrays;
+
 public class BlockComposite extends BlockSpecial{
 	private BlockSpecial[] blockComposite;
 	private final int nbComposite = 2;
@@ -15,6 +17,11 @@ public class BlockComposite extends BlockSpecial{
 		}
 	}
 	
+	@Override
+	public String toString() {
+		return "O";
+	}
+
 	public void  removeBlock(BlockSpecial block){
 		if(blockComposite.length==nbComposite){
 			if(blockComposite[0] instanceof BlockMovable){
