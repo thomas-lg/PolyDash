@@ -1,20 +1,56 @@
 package polytech.polydash.main;
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import polytech.polydash.screens.HUD;
+import polytech.polydash.screens.TestScreen;
 
-public class Polydash {
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-		cfg.title = Game.TITLE;
-		cfg.width = Game.V_WIDTH * Game.SCALE;
-		cfg.height = Game.V_HEIGHT * Game.SCALE;
-		cfg.useGL20 = false;
-		new LwjglApplication(new Game(), cfg);
+public class Polydash extends Game{
+	
+	public static final String TITLE = "Polydash";
+	public static final int V_WIDTH = 320;
+	public static final int V_HEIGHT = 200;
+	public static final int SCALE = 2;
+	public SpriteBatch batch;
+	public BitmapFont font;
+	
+	public void create() {
+		batch = new SpriteBatch();
+		// Use LibGDX's default Arial font.
+		font = new BitmapFont();
+		this.setScreen(new TestScreen(this));
 	}
+
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void render() {
+		super.render();
+	}
+
+	@Override
+	public void resize(int arg0, int arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
