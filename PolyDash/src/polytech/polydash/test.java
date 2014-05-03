@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 
 import polytech.polydash.draughtboardmanagement.Block;
+import polytech.polydash.gameStateManager.GameState;
 import polytech.polydash.labyrinthfiles.*;
 
 public class test {
@@ -15,6 +16,14 @@ public class test {
 		Reader r = new Reader(".."+File.separator+"PolyDash"+File.separator+"level"+File.separator+"level.txt");
 		Block[][] dammier = new Block[20][20];
 		dammier = r.readFile();
+		GameState gs = new GameState(dammier);
+		printDammier(gs.getGameState());
+		gs.leftRotation();
+		printDammier(gs.getGameState());
+		
+	}
+	
+	public static void printDammier(Block[][] dammier){
 		System.out.println("Debut Dammier");
 		try{
 		for(int i =0;i<20;i++){
@@ -27,5 +36,6 @@ public class test {
 			e.printStackTrace();
 		}
 		System.out.println("Fin Dammier");
+		
 	}
 }
