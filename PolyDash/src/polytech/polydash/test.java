@@ -13,13 +13,13 @@ public class test {
 	 */
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		Reader r = new Reader(".."+File.separator+"PolyDash"+File.separator+"level"+File.separator+"level.txt");
+		Reader r = new Reader(".."+File.separator+"PolyDash"+File.separator+"level"+File.separator+"level2.txt");
 		Block[][] dammier = new Block[20][20];
 		dammier = r.readFile();
 		GameState gs = new GameState(dammier);
 		printDammier(gs.getGameState());
-		gs.leftRotation();
-		printDammier(gs.getGameState());
+		//gs.leftRotation();
+		//printDammier(gs.getGameState());
 		gs.checkGameState();
 		printDammier(gs.getGameState());
 		//gs.rightRotation();

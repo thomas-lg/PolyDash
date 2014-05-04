@@ -40,29 +40,22 @@ public class GameState {
 	public void checkGameState(){
 		System.out.println("check");
 		for(int i = this.gameState.length-1; i >= 0; i--){
-			//System.out.println("In i "+ i);
 			for(int j = this.gameState.length-1; j >= 0; j--){
-				//System.out.println("In j "+ j);
-				//if((i-1)>=0){
 					if(this.gameState[i][j] instanceof BlockMovable){
-						//System.out.println("true movable");
-						if(this.gameState[i+1][j] instanceof BlockEmpty){
-							//System.out.println("true empty");
-							Block tmp = this.gameState[i+1][j];
-							//System.out.println(tmp.toString());
-							this.gameState[i+1][j] = this.gameState[i][j];
+						for(int cpt = 1; i+cpt<this.gameState.length-1;cpt++){
+						if(this.gameState[i+cpt][j] instanceof BlockEmpty){
+							Block tmp = this.gameState[i+cpt][j];
+							this.gameState[i+cpt][j] = this.gameState[i][j];
 							this.gameState[i][j] = tmp;
-							//System.out.println(this.gameState[i][j].toString());
-							//System.out.println(this.gameState[i+1][j].toString());
-						}else if(this.gameState[i+1][j] instanceof BlockGem){
+						}else if(this.gameState[i+cpt][j] instanceof BlockGem){
 							BlockComposite tmp = new BlockComposite(Polydash.res.getTexture("mobile_bloc")); // TODO image a modifier
-							tmp.addBlock((BlockSpecial)this.gameState[i+1][j]);
-							tmp.addBlock((BlockSpecial)this.gameState[i][j]);
-							this.gameState[i+1][j] = tmp;
-							this.gameState[i+1][j] = new BlockEmpty(Polydash.res.getTexture("empty"));// TODO image a modifier
+							tmp.addBlock((BlockSpecial)this.gameState[i+cpt][j]);
+							tmp.addBlock((BlockSpecial)this.gameState[i+cpt-1][j]);
+							this.gameState[i+cpt][j] = tmp;
+							this.gameState[i+cpt-1][j] = new BlockEmpty(Polydash.res.getTexture("empty"));// TODO image a modifier
 						}
 					}
-				//}
+				}
 			}
 		}
 	}
