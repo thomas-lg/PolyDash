@@ -13,5 +13,21 @@ public class BlockGem extends BlockSpecial {
 	public String toString() {
 		return "G";
 	}
+	
+	@Override
+	public Block getMovableFromComposite() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Block getGemFromComposite() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void addBlock(Block b) {
+		throw new UnsupportedOperationException();
+		
+	}
 
 }

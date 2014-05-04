@@ -14,7 +14,21 @@ public class BlockEmpty extends Block {
 	public String toString() {
 		return "_";
 	}
-	
+	@Override
+	public Block getMovableFromComposite() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Block getGemFromComposite() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void addBlock(Block b) {
+		throw new UnsupportedOperationException();
+		
+	}
 	
 
 }

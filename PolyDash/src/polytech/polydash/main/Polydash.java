@@ -37,7 +37,7 @@ public class Polydash extends Game {
 		// Use LibGDX's default Arial font.
 		font = new BitmapFont();
 		this.setScreen(new TestScreen(this));
-		Reader r = new Reader("level"+File.separator+"level.txt");
+		Reader r = new Reader("level"+File.separator+"level2.txt");
 		Block[][] dammier = new Block[20][20];
 			try {
 				dammier = r.readFile();
@@ -47,8 +47,10 @@ public class Polydash extends Game {
 			}
 			GameState gs = new GameState(dammier);
 			printDammier(gs.getGameState());
-			//gs.leftRotation();
-			//printDammier(gs.getGameState());
+			gs.leftRotation();
+			printDammier(gs.getGameState());
+			gs.checkGameState();
+			gs.rightRotation();
 			gs.checkGameState();
 			printDammier(gs.getGameState());
 		

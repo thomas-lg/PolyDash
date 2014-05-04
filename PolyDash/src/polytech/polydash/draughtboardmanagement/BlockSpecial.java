@@ -7,5 +7,12 @@ public abstract class BlockSpecial extends Block {
 	public BlockSpecial(Texture text) {
 		super(text);
 	}
+	@Override
+	public abstract Block getMovableFromComposite();
 
+	@Override
+	public abstract Block getGemFromComposite();
+
+	@Override
+	public abstract void addBlock(Block b);
 }
