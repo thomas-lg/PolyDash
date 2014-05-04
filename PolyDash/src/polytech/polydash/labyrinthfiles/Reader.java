@@ -15,6 +15,7 @@ import polytech.polydash.draughtboardmanagement.BlockGem;
 import polytech.polydash.draughtboardmanagement.BlockMovable;
 import polytech.polydash.draughtboardmanagement.Character;
 import polytech.polydash.main.Polydash;
+import polytech.polydash.utils.Var;
 
 /**
  * 
@@ -23,7 +24,6 @@ import polytech.polydash.main.Polydash;
  *
  */
 public class Reader {
-	private final int damierSize = 20;
 	private File level;
 	public Reader(String Filepath){
 		this.level = new File(Filepath);
@@ -38,12 +38,12 @@ public class Reader {
 	public Block[][] readFile() throws IOException {
 		String line;
 		int index=0;
-		Block[][] dammier = new Block[damierSize][damierSize];
+		Block[][] dammier = new Block[Var.NBROW][Var.NBROW];
 		BufferedReader readwithBuffer = openFile(this.level);
-		while ((line = readwithBuffer.readLine()) != null && index<damierSize) {
+		while ((line = readwithBuffer.readLine()) != null && index<Var.NBROW) {
 			try {
 				line = line.replaceAll(" ", ""); // A revoir 
-				for(int i=0;i<damierSize;i++){
+				for(int i=0;i<Var.NBROW;i++){
 					dammier[index][i]= getInstanceBlock(line.charAt(i));
 				}
 				index++;

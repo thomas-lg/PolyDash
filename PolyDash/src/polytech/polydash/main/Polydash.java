@@ -6,50 +6,46 @@ import java.io.IOException;
 import polytech.polydash.draughtboardmanagement.Block;
 import polytech.polydash.gameStateManager.GameState;
 import polytech.polydash.handlers.Content;
+import polytech.polydash.handlers.PInputProcessor;
 import polytech.polydash.labyrinthfiles.Reader;
 import polytech.polydash.screens.TestScreen;
+import polytech.polydash.utils.Var;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * 
+ * @author Thomas
+ * 
+ */
 public class Polydash extends Game {
 
-	public static final String TITLE = "Polydash";
-	public static final int V_WIDTH = 320;
-	public static final int V_HEIGHT = 200;
-	public static final int SCALE = 2;
 	private SpriteBatch batch;
 	private BitmapFont font;
 	public static Content res;
-
 	private GameState gs;
 
 	public void create() {
 		res = new Content();
 
-		res.loadTexture("res/fix_bloc.png");
-		res.loadTexture("res/empty.png");
-		res.loadTexture("res/mobile_bloc.png");
-		res.loadTexture("res/ruby.png");
-		res.loadTexture("res/miner.png");
-		res.loadTexture("res/miner_move.png");
+		res.loadTexture("res" + File.separator + "fix_bloc.png");
+		res.loadTexture("res" + File.separator + "empty.png");
+		res.loadTexture("res" + File.separator + "mobile_bloc.png");
+		res.loadTexture("res" + File.separator + "ruby.png");
+		res.loadTexture("res" + File.separator + "miner.png");
+		res.loadTexture("res" + File.separator + "miner_move.png");
 
 		batch = new SpriteBatch();
 		// Use LibGDX's default Arial font.
 		font = new BitmapFont();
+
 		this.setScreen(new TestScreen(this));
 
-		// ZONE DE TEST EN CONSOLE
-		/*
-		 * Installer un getCharactere dans le gamestate :) Faire une save de son
-		 * emplacement lors de la lecture du fichier level, pour récup easy
-		 * après et je pense que toute la lecture du fichier se fait dans le
-		 * constructeur de gamestate J'ai rien modif de tes trucs mon Bobo,
-		 * c'est juste des idées, on en discutera :) Thomas
-		 */
-		Reader r = new Reader("level" + File.separator + "level2.txt");
-		Block[][] dammier = new Block[20][20];
+		Reader r = new Reader("level" + File.separator + "level.txt");
+		Block[][] dammier = new Block[Var.NBROW][Var.NBROW];
 		try {
 			dammier = r.readFile();
 		} catch (IOException e) {
@@ -57,20 +53,20 @@ public class Polydash extends Game {
 			e.printStackTrace();
 		}
 		gs = new GameState(dammier);
-		printDammier(gs.getGameState());
-		gs.leftRotation();
-		printDammier(gs.getGameState());
-		gs.checkGameState();
-		gs.rightRotation();
-		gs.checkGameState();
-		printDammier(gs.getGameState());
-
+//		printDammier(gs.getGameState());
+//		gs.leftRotation();
+//		printDammier(gs.getGameState());
+//		gs.checkGameState();
+//		gs.rightRotation();
+//		gs.checkGameState();
+//		printDammier(gs.getGameState());
+		Gdx.input.setInputProcessor(new PInputProcessor(gs));
 	}
 
 	@Override
 	public void dispose() {
-		batch.dispose();
-		font.dispose();
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -96,31 +92,11 @@ public class Polydash extends Game {
 
 	}
 
-	public void test() {
-		try {
-			Reader r = new Reader(".." + File.separator + "PolyDash"
-					+ File.separator + "level" + File.separator + "level2.txt");
-			Block[][] dammier = new Block[20][20];
-			dammier = r.readFile();
-			GameState gs = new GameState(dammier);
-			printDammier(gs.getGameState());
-			// gs.leftRotation();
-			// printDammier(gs.getGameState());
-			gs.checkGameState();
-			printDammier(gs.getGameState());
-			// gs.rightRotation();
-			// printDammier(gs.getGameState());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	public static void printDammier(Block[][] dammier) {
 		System.out.println("Debut Dammier");
 		try {
-			for (int i = 0; i < 20; i++) {
-				for (int j = 0; j < 20; j++) {
+			for (int i = 0; i < Var.NBROW; i++) {
+				for (int j = 0; j < Var.NBROW; j++) {
 					System.out.print(dammier[i][j].toString());
 				}
 				System.out.println();
@@ -132,16 +108,27 @@ public class Polydash extends Game {
 
 	}
 
-	public SpriteBatch getSpriteBatch() {
+	public SpriteBatch getBatch() {
 		return batch;
 	}
 
-	public BitmapFont getBitmapFont() {
+	public BitmapFont getFont() {
 		return font;
 	}
 
-	public GameState getGameState() {
+	public GameState getGs() {
 		return gs;
 	}
 
+	public void setBatch(SpriteBatch batch) {
+		this.batch = batch;
+	}
+
+	public void setFont(BitmapFont font) {
+		this.font = font;
+	}
+
+	public void setGs(GameState gs) {
+		this.gs = gs;
+	}
 }
