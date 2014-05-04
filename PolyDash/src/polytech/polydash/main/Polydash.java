@@ -26,7 +26,7 @@ public class Polydash extends Game {
 	public void create() {
 		res = new Content();
 		
-		res.loadTexture("res/fix_block.png");
+		res.loadTexture("res/fix_bloc.png");
 		res.loadTexture("res/empty.png");
 		res.loadTexture("res/mobile_bloc.png");
 		res.loadTexture("res/ruby.png");
@@ -37,7 +37,7 @@ public class Polydash extends Game {
 		// Use LibGDX's default Arial font.
 		font = new BitmapFont();
 		this.setScreen(new TestScreen(this));
-		Reader r = new Reader(".."+File.separator+"PolyDash"+File.separator+"level"+File.separator+"level2.txt");
+		Reader r = new Reader("level"+File.separator+"level.txt");
 		Block[][] dammier = new Block[20][20];
 			try {
 				dammier = r.readFile();
