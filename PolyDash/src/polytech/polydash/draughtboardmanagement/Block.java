@@ -14,6 +14,15 @@ public abstract class Block {
 		return texture;
 	}
 	
+	public abstract Block getMovableFromComposite();
+		
+	
+	public abstract Block getGemFromComposite();
+		
+	
+	public abstract void addBlock(Block b) ;
+    	
+    
 	public void setImg(Texture text) {
 		this.texture = text;
 	}

@@ -20,7 +20,21 @@ public class Character extends Block {
 	public void setAlive(boolean alive) {
 		this.alive = alive;
 	}
+	@Override
+	public Block getMovableFromComposite() {
+		throw new UnsupportedOperationException();
+	}
 
+	@Override
+	public Block getGemFromComposite() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void addBlock(Block b) {
+		throw new UnsupportedOperationException();
+		
+	}
 	public int getMoves() 
 	{
 		return moves;

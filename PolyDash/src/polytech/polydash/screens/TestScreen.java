@@ -44,15 +44,15 @@ public class TestScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
-		game.batch.setProjectionMatrix(camera.combined);
+		game.getSpriteBatch().setProjectionMatrix(camera.combined);
 
-		game.batch.begin();
-		game.font.draw(game.batch, "Welcome to Polydash!!! ", 100, 150);
-		game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
-		game.batch.end();
+		game.getSpriteBatch().begin();
+		game.getBitmapFont().draw(game.getSpriteBatch(), "Welcome to Polydash!!! ", 100, 150);
+		game.getBitmapFont().draw(game.getSpriteBatch(), "Tap anywhere to begin!", 100, 100);
+		game.getSpriteBatch().end();
 
 		if (Gdx.input.isTouched()) {
-			game.setScreen(new HUD(game));
+			game.setScreen(new GameScreen(game));
 			dispose();
 		}
 
