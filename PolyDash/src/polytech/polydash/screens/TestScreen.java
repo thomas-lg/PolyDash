@@ -44,7 +44,7 @@ public class TestScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		game.getBatch().begin();
-		game.getFont().draw(game.getBatch(), "Welcome to Polydash!!! ", 100, 150);
+		game.getFont().draw(game.getBatch(), "Welcome to Polydash!!! ", 200, 250);
 		game.getFont().draw(game.getBatch(), "Tap anywhere to begin!", 100, 100);
 		game.getBatch().end();
 

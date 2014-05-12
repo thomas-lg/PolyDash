@@ -53,7 +53,7 @@ public class Polydash extends Game {
 			e.printStackTrace();
 		}
 		gs = new GameState(dammier);
-//		printDammier(gs.getGameState());
+	//	printDammier(gs.getGameState());
 //		gs.leftRotation();
 //		printDammier(gs.getGameState());
 //		gs.checkGameState();
@@ -117,6 +117,7 @@ public class Polydash extends Game {
 	}
 
 	public GameState getGs() {
+		printDammier(gs.getGameState());
 		return gs;
 	}
 

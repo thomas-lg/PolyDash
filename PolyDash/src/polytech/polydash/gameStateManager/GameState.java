@@ -29,7 +29,7 @@ public class GameState {
 		}
 	}
 
-	public void leftRotation() {
+	public void leftRotationGameState() {
 		System.out.println("Rotation gauche");
 		Block[][] newGameState = new Block[Var.NBROW][Var.NBROW];
 		for (int i = 0; i < Var.NBROW; i++) {
@@ -40,8 +40,15 @@ public class GameState {
 		this.setCharacterPosLeft();
 		this.setGameState(newGameState);
 	}
-
 	public void rightRotation() {
+		rightRotationGameState();
+		checkGameState();
+	}
+	public void leftRotation(){
+		leftRotationGameState();
+		checkGameState();
+	}
+	public void rightRotationGameState() {
 		System.out.println("Rotation droite");
 		Block[][] newGameState = new Block[Var.NBROW][Var.NBROW];
 		for (int i = 0; i < Var.NBROW; i++) {
@@ -60,14 +67,14 @@ public class GameState {
 				if (this.gameState[i][j] instanceof BlockMovable) {
 					movableBlockTraitement(i, j);
 				}
-				if (this.gameState[i][j] instanceof BlockComposite) {
+				/*if (this.gameState[i][j] instanceof BlockComposite) {
 					Block gemme = this.gameState[i][j].getGemFromComposite();
 					Block movable = this.gameState[i][j]
 							.getMovableFromComposite();
 					this.gameState[i][j] = movable;
 					movableBlockTraitement(i, j);
 					this.gameState[i][j] = gemme;
-				}
+				}*/
 			}
 		}
 	}
@@ -82,22 +89,30 @@ public class GameState {
 		int x = xCharacter, y = yCharacter;
 		Block charac;
 		if (m == Var.Move.RIGHT) {
-			x = xCharacter + 1;
+			if(gameState[xCharacter][yCharacter+1]instanceof BlockEmpty && yCharacter+1<20  && yCharacter+1>=0){
+			y = yCharacter + 1;
+			}
 		}
 		if (m == Var.Move.LEFT) {
-			x = xCharacter - 1;
+			if(gameState[xCharacter][yCharacter-1]instanceof BlockEmpty && yCharacter-1<20  && yCharacter-1>=0){
+			y = yCharacter - 1;
+			}
 		}
 		if (m == Var.Move.DOWN) {
-			y = yCharacter - 1;
+			if(gameState[xCharacter+1][yCharacter]instanceof BlockEmpty && xCharacter+1<20  && xCharacter+1>=0){
+			x = xCharacter + 1;
+			}
 		}
 		if (m == Var.Move.UP) {
-			y = yCharacter + 1;
+			if((gameState[xCharacter-1][yCharacter]instanceof BlockEmpty) && xCharacter-1<20  && xCharacter-1>=0 ){
+			x = xCharacter - 1;
+			}
 		}
 		charac = gameState[xCharacter][yCharacter];
 		gameState[xCharacter][yCharacter] = gameState[x][y];
 		gameState[x][y] = charac;
-		gameState[xCharacter][yCharacter].setImg(gameState[x][y].getImg());
-		gameState[x][y].setImg(charac.getImg());
+		//gameState[xCharacter][yCharacter].setImg(gameState[x][y].getImg());
+		//gameState[x][y].setImg(charac.getImg());
 		xCharacter = x;
 		yCharacter = y;
 		System.out.println("x : " + xCharacter + " y : " + yCharacter);

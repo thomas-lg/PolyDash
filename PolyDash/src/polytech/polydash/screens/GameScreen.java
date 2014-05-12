@@ -63,14 +63,14 @@ public class GameScreen implements Screen {
 	private void printGrid() {
 		Block[][] grid = game.getGs().getGameState();
 		float x = 100;
-		float y = 10;
+		float y = Var.V_HEIGHT-50;
 		for (int i = 0; i < Var.NBROW; i++) {
 			for (int j = 0; j < Var.NBROW; j++) {
 				game.getBatch().draw(grid[i][j].getImg(), x, y);
-				y = y + 32;
+				x = x + 32;
 			}
-			x = x + 32;
-			y = 10;
+			x = 100;
+			y = y-32;
 
 		}
 	}
