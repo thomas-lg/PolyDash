@@ -8,7 +8,7 @@ import polytech.polydash.gameStateManager.GameState;
 import polytech.polydash.handlers.Content;
 import polytech.polydash.handlers.PInputProcessor;
 import polytech.polydash.labyrinthfiles.Reader;
-import polytech.polydash.screens.TestScreen;
+import polytech.polydash.screens.GameScreen;
 import polytech.polydash.utils.Var;
 
 import com.badlogic.gdx.Game;
@@ -28,6 +28,9 @@ public class Polydash extends Game {
 	public static Content res;
 	private GameState gs;
 
+	/**
+	 * Init de tous les fichiers de ressources, de la gestion des inputs et du damier
+	 */
 	public void create() {
 		res = new Content();
 
@@ -42,7 +45,7 @@ public class Polydash extends Game {
 		// Use LibGDX's default Arial font.
 		font = new BitmapFont();
 
-		this.setScreen(new TestScreen(this));
+		this.setScreen(new GameScreen(this));
 
 		Reader r = new Reader("level" + File.separator + "level.txt");
 		Block[][] dammier = new Block[Var.NBROW][Var.NBROW];
@@ -65,8 +68,7 @@ public class Polydash extends Game {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-
+		super.dispose();
 	}
 
 	@Override
@@ -108,27 +110,31 @@ public class Polydash extends Game {
 
 	}
 
+	/**
+	 * 
+	 * @return batch
+	 */
 	public SpriteBatch getBatch() {
 		return batch;
 	}
 
+	/**
+	 * 
+	 * @return font
+	 */
 	public BitmapFont getFont() {
 		return font;
 	}
 
+	/**
+	 * 
+	 * @return gs
+	 */
 	public GameState getGs() {
-		printDammier(gs.getGameState());
+		//printDammier(gs.getGameState());
 		return gs;
 	}
-
-	public void setBatch(SpriteBatch batch) {
-		this.batch = batch;
-	}
-
-	public void setFont(BitmapFont font) {
-		this.font = font;
-	}
-
+	
 	public void setGs(GameState gs) {
 		this.gs = gs;
 	}

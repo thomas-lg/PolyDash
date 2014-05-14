@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 /**
  * HashMap des ressources
+ * @author Thomas
  */
 public class Content {
 	

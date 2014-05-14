@@ -1,6 +1,10 @@
 package polytech.polydash.utils;
 
-
+/**
+ * 
+ * @author Thomas
+ *
+ */
 public final class Var {
 	
 	//Enum
@@ -16,6 +20,9 @@ public final class Var {
 	
 	//Gestion du damier
 	public static final int NBROW = 20;
+	
+	//Score
+	public static int SCORE = 0;
 	
 	
 

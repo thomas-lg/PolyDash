@@ -35,29 +35,38 @@ public class GameState {
 		for (int i = 0; i < Var.NBROW; i++) {
 			for (int j = 0; j < Var.NBROW; j++) {
 				newGameState[(Var.NBROW - 1) - j][i] = this.gameState[i][j];
+				if (newGameState[(Var.NBROW - 1) - j][i] instanceof Character) {
+					xCharacter = (Var.NBROW - 1) - j;
+					yCharacter = i;
+				}
 			}
 		}
-		this.setCharacterPosLeft();
 		this.setGameState(newGameState);
 	}
-	public void rightRotation() {
-		rightRotationGameState();
-		checkGameState();
-	}
-	public void leftRotation(){
-		leftRotationGameState();
-		checkGameState();
-	}
+
 	public void rightRotationGameState() {
 		System.out.println("Rotation droite");
 		Block[][] newGameState = new Block[Var.NBROW][Var.NBROW];
 		for (int i = 0; i < Var.NBROW; i++) {
 			for (int j = 0; j < Var.NBROW; j++) {
 				newGameState[j][(Var.NBROW - 1) - i] = this.gameState[i][j];
+				if (newGameState[j][(Var.NBROW - 1) - i] instanceof Character) {
+					xCharacter = j;
+					yCharacter = (Var.NBROW - 1) - i;
+				}
 			}
 		}
-		this.setCharacterPosRight();
 		this.setGameState(newGameState);
+	}
+
+	public void rightRotation() {
+		rightRotationGameState();
+		checkGameState();
+	}
+
+	public void leftRotation() {
+		leftRotationGameState();
+		checkGameState();
 	}
 
 	public void checkGameState() {
@@ -67,52 +76,54 @@ public class GameState {
 				if (this.gameState[i][j] instanceof BlockMovable) {
 					movableBlockTraitement(i, j);
 				}
-				/*if (this.gameState[i][j] instanceof BlockComposite) {
-					Block gemme = this.gameState[i][j].getGemFromComposite();
-					Block movable = this.gameState[i][j]
-							.getMovableFromComposite();
-					this.gameState[i][j] = movable;
-					movableBlockTraitement(i, j);
-					this.gameState[i][j] = gemme;
-				}*/
+				/*
+				 * if (this.gameState[i][j] instanceof BlockComposite) { Block
+				 * gemme = this.gameState[i][j].getGemFromComposite(); Block
+				 * movable = this.gameState[i][j] .getMovableFromComposite();
+				 * this.gameState[i][j] = movable; movableBlockTraitement(i, j);
+				 * this.gameState[i][j] = gemme; }
+				 */
 			}
 		}
 	}
 
 	/**
-	 * Temporaire Rajouter enum de l'état de l'écran 0,90,180,270 et faire les
-	 * modifs de l'emplacement du perso xCharater et tout voir la maj de l'écran
-	 * 
+	 * Gestion du mouvement du personnage à l'écran, lors de déplacement
+	 * type : Gauche, Droite, Haut, Bas
 	 * @param m
 	 */
 	public void move(Move m) {
 		int x = xCharacter, y = yCharacter;
 		Block charac;
 		if (m == Var.Move.RIGHT) {
-			if(gameState[xCharacter][yCharacter+1]instanceof BlockEmpty && yCharacter+1<20  && yCharacter+1>=0){
-			y = yCharacter + 1;
+			if (gameState[xCharacter][yCharacter + 1] instanceof BlockEmpty
+					&& yCharacter + 1 < 20 && yCharacter + 1 >= 0) {
+				y = yCharacter + 1;
 			}
 		}
 		if (m == Var.Move.LEFT) {
-			if(gameState[xCharacter][yCharacter-1]instanceof BlockEmpty && yCharacter-1<20  && yCharacter-1>=0){
-			y = yCharacter - 1;
+			if (gameState[xCharacter][yCharacter - 1] instanceof BlockEmpty
+					&& yCharacter - 1 < 20 && yCharacter - 1 >= 0) {
+				y = yCharacter - 1;
 			}
 		}
 		if (m == Var.Move.DOWN) {
-			if(gameState[xCharacter+1][yCharacter]instanceof BlockEmpty && xCharacter+1<20  && xCharacter+1>=0){
-			x = xCharacter + 1;
+			if (gameState[xCharacter + 1][yCharacter] instanceof BlockEmpty
+					&& xCharacter + 1 < 20 && xCharacter + 1 >= 0) {
+				x = xCharacter + 1;
 			}
 		}
 		if (m == Var.Move.UP) {
-			if((gameState[xCharacter-1][yCharacter]instanceof BlockEmpty) && xCharacter-1<20  && xCharacter-1>=0 ){
-			x = xCharacter - 1;
+			if ((gameState[xCharacter - 1][yCharacter] instanceof BlockEmpty)
+					&& xCharacter - 1 < 20 && xCharacter - 1 >= 0) {
+				x = xCharacter - 1;
 			}
 		}
 		charac = gameState[xCharacter][yCharacter];
 		gameState[xCharacter][yCharacter] = gameState[x][y];
 		gameState[x][y] = charac;
-		//gameState[xCharacter][yCharacter].setImg(gameState[x][y].getImg());
-		//gameState[x][y].setImg(charac.getImg());
+		// gameState[xCharacter][yCharacter].setImg(gameState[x][y].getImg());
+		// gameState[x][y].setImg(charac.getImg());
 		xCharacter = x;
 		yCharacter = y;
 		System.out.println("x : " + xCharacter + " y : " + yCharacter);
@@ -160,46 +171,6 @@ public class GameState {
 
 	public Block[][] getGameState() {
 		return gameState;
-	}
-
-	private void setCharacterPosRight() {
-		int tmp = xCharacter;
-		if (xCharacter <= (Var.NBROW / 2) && yCharacter <= (Var.NBROW / 2)) {
-			xCharacter = yCharacter;
-			yCharacter = Var.NBROW - tmp;
-		}
-		if (xCharacter > (Var.NBROW / 2) && yCharacter > (Var.NBROW / 2)) {
-			xCharacter = Var.NBROW - yCharacter;
-			yCharacter = Var.NBROW - tmp;
-		}
-		if (xCharacter > (Var.NBROW / 2) && yCharacter <= (Var.NBROW / 2)) {
-			xCharacter = yCharacter;
-			yCharacter = Var.NBROW - yCharacter;
-		}
-		if (xCharacter <= (Var.NBROW / 2) && yCharacter > (Var.NBROW / 2)) {
-			xCharacter = Var.NBROW - xCharacter;
-			yCharacter = xCharacter;
-		}
-	}
-
-	private void setCharacterPosLeft() {
-		int tmp = xCharacter;
-		if (xCharacter <= (Var.NBROW / 2) && yCharacter <= (Var.NBROW / 2)) {
-			xCharacter = Var.NBROW - yCharacter;
-			yCharacter = xCharacter;
-		}
-		if (xCharacter > (Var.NBROW / 2) && yCharacter > (Var.NBROW / 2)) {
-			xCharacter = Var.NBROW - yCharacter;
-			yCharacter = Var.NBROW - tmp;
-		}
-		if (xCharacter > (Var.NBROW / 2) && yCharacter <= (Var.NBROW / 2)) {
-			xCharacter = Var.NBROW - yCharacter;
-			yCharacter = tmp;
-		}
-		if (xCharacter <= (Var.NBROW / 2) && yCharacter > (Var.NBROW / 2)) {
-			xCharacter = Var.NBROW - yCharacter;
-			yCharacter = Var.NBROW - tmp;
-		}
 	}
 
 	public void setGameState(Block[][] gameState) {

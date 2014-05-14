@@ -17,8 +17,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public class GameScreen implements Screen {
 	final Polydash game;
-	public int testScore = 500;
 
+	/**
+	 * Constructeur de l'écran du jeu
+	 * @param game
+	 */
 	public GameScreen(Polydash game) {
 		this.game = game;
 	}
@@ -51,7 +54,7 @@ public class GameScreen implements Screen {
 
 		game.getBatch().begin();
 		
-		printScore(String.valueOf(testScore), 10, 350);
+		printScore(String.valueOf(Var.SCORE), 10, 350);
 		printGrid();
 
 		game.getBatch().end();

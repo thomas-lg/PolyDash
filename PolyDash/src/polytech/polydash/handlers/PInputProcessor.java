@@ -1,15 +1,13 @@
 package polytech.polydash.handlers;
 
-import polytech.polydash.draughtboardmanagement.Block;
 import polytech.polydash.gameStateManager.GameState;
 import polytech.polydash.utils.Var;
 
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 
 /**
- * 
+ * Gestion des inputs
  * @author Thomas
  * 
  */
@@ -17,12 +15,17 @@ public class PInputProcessor implements InputProcessor {
 
 	GameState gs;
 
+	/**
+	 * Constructeur
+	 * @param gs
+	 */
 	public PInputProcessor(GameState gs) {
 		this.gs = gs;
 	}
 	
 	@Override
 	public boolean keyDown(int k) {
+		Var.SCORE++;
 		if (k == Keys.RIGHT)
 			gs.move(Var.Move.RIGHT);
 		if (k == Keys.LEFT) {
