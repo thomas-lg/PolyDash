@@ -80,7 +80,7 @@ public class Reader {
 	 * @throws UndefineCharBlockException (caractére inconnue)
 	 */
 
-	private Block getInstanceBlock(char c) throws UndefineCharBlockException {
+	private  Block getInstanceBlock(char c) throws UndefineCharBlockException {
 		switch (c)
 		{
 		case '_': return new BlockEmpty(Polydash.res.getTexture("empty"));
