@@ -61,12 +61,12 @@ public class GameState {
 
 	public void rightRotation() {
 		rightRotationGameState();
-		checkGameState();
+		this.checkGameState();
 	}
 
 	public void leftRotation() {
 		leftRotationGameState();
-		checkGameState();
+		this.checkGameState();
 	}
 
 	public void checkGameState() {
@@ -74,7 +74,7 @@ public class GameState {
 		for (int i = Var.NBROW - 1; i >= 0; i--) {
 			for (int j = Var.NBROW - 1; j >= 0; j--) {
 				if (this.gameState[i][j] instanceof BlockMovable) {
-					System.out.println(i+" "+j);
+					System.out.println(i + " " + j);
 					movableBlockTraitement(i, j);
 				}
 				/*
@@ -95,14 +95,24 @@ public class GameState {
 	 * @param m
 	 */
 	public void move(Move m) {
+		boolean move = false;
 		int x = xCharacter, y = yCharacter;
 		Block charac;
 		if (m == Var.Move.RIGHT) {
-			if (yCharacter + 1 < 20
-					&& yCharacter + 1 >= 0
-					&& gameState[xCharacter][yCharacter + 1] instanceof BlockEmpty) {
-				y = yCharacter + 1;
-				Var.SCORE++;
+			if (yCharacter + 1 < 20 && yCharacter + 1 >= 0) {
+				if (gameState[xCharacter][yCharacter + 1] instanceof BlockEmpty) {
+					y = yCharacter + 1;
+					Var.SCORE++;
+					move = true;
+				} else if (yCharacter + 2 < 20
+						&& yCharacter + 2 >= 0
+						&& gameState[xCharacter][yCharacter + 1] instanceof BlockMovable
+						&& gameState[xCharacter][yCharacter + 2] instanceof BlockEmpty) {
+					gameState[x][y + 2] = gameState[x][y + 1];
+					y = yCharacter + 1;
+					Var.SCORE++;
+					move = true;
+				}
 			}
 		}
 		if (m == Var.Move.LEFT) {
@@ -111,6 +121,15 @@ public class GameState {
 					&& gameState[xCharacter][yCharacter - 1] instanceof BlockEmpty) {
 				y = yCharacter - 1;
 				Var.SCORE++;
+				move = true;
+			} else if (yCharacter - 2 < 20
+					&& yCharacter - 2 >= 0
+					&& gameState[xCharacter][yCharacter - 1] instanceof BlockMovable
+					&& gameState[xCharacter][yCharacter - 2] instanceof BlockEmpty) {
+				gameState[x][y - 2] = gameState[x][y - 1];
+				y = yCharacter - 1;
+				Var.SCORE++;
+				move = true;
 			}
 		}
 		if (m == Var.Move.DOWN) {
@@ -119,21 +138,46 @@ public class GameState {
 					&& gameState[xCharacter + 1][yCharacter] instanceof BlockEmpty) {
 				x = xCharacter + 1;
 				Var.SCORE++;
+				move = true;
+			} else if (xCharacter + 1 < 20
+					&& xCharacter + 1 >= 0
+					&& gameState[xCharacter + 1][yCharacter] instanceof BlockMovable
+					&& gameState[xCharacter + 2][yCharacter] instanceof BlockEmpty) {
+				gameState[xCharacter + 2][y] = gameState[x + 1][y];
+				x = xCharacter + 1;
+				Var.SCORE++;
+				move = true;
 			}
 		}
 		if (m == Var.Move.UP) {
 			if ((xCharacter - 1 < 20 && xCharacter - 1 >= 0 && gameState[xCharacter - 1][yCharacter] instanceof BlockEmpty)) {
 				x = xCharacter - 1;
 				Var.SCORE++;
+				move = true;
+			} else if (xCharacter - 1 < 20
+					&& xCharacter - 1 >= 0
+					&& gameState[xCharacter - 1][yCharacter] instanceof BlockMovable
+					&& gameState[xCharacter - 2][yCharacter] instanceof BlockEmpty) {
+				gameState[xCharacter - 2][y] = gameState[x - 1][y];
+				x = xCharacter - 1;
+				Var.SCORE++;
+				move = true;
 			}
 		}
-		charac = gameState[xCharacter][yCharacter];
-		gameState[xCharacter][yCharacter] = gameState[x][y];
-		gameState[x][y] = charac;
-		// gameState[xCharacter][yCharacter].setImg(gameState[x][y].getImg());
-		// gameState[x][y].setImg(charac.getImg());
-		xCharacter = x;
-		yCharacter = y;
+
+		if (move) {
+			charac = gameState[xCharacter][yCharacter];
+			gameState[x][y] = charac;
+			gameState[xCharacter][yCharacter] = new BlockEmpty(
+					Polydash.res.getTexture("empty"));
+
+			// gameState[xCharacter][yCharacter].setImg(gameState[x][y].getImg());
+			// gameState[x][y].setImg(charac.getImg());
+			xCharacter = x;
+			yCharacter = y;
+			this.checkGameState();
+			System.out.println("x : " + xCharacter + " y : " + yCharacter);
+		}
 		System.out.println("x : " + xCharacter + " y : " + yCharacter);
 	}
 
@@ -141,32 +185,34 @@ public class GameState {
 		Block blockdeplace = this.gameState[i][j];
 		Block blockremplace = this.gameState[i][j];
 		int cpt = 1;
-		for (cpt = 1; i + cpt < Var.NBROW ; cpt++) {
+		for (cpt = 1; i + cpt < Var.NBROW; cpt++) {
 			if (this.gameState[i + cpt][j] instanceof BlockEmpty) {
-				blockremplace = this.gameState[i+cpt][j];
+				blockremplace = this.gameState[i + cpt][j];
 			} else if (this.gameState[i + cpt][j] instanceof BlockGem) {
-				blockremplace = this.gameState[i+cpt][j];
-				//blockremplace = new BlockComposite(
-						//Polydash.res.getTexture("mobile_bloc")); // TODO image a
-																	// //
-																	// modifier
-				//blockremplace.addBlock(this.gameState[i][j]);
-				//blockremplace.addBlock(this.gameState[i + cpt][j]);
-				//this.gameState[i + cpt][j] = blockremplace;
-				//blockdeplace = new BlockEmpty(Polydash.res.getTexture("empty"));// TODO
-																		// image
-																		// a
-																		// modifier
-				//break;
+				blockremplace = this.gameState[i + cpt][j];
+				// blockremplace = new BlockComposite(
+				// Polydash.res.getTexture("mobile_bloc")); // TODO image a
+				// //
+				// modifier
+				// blockremplace.addBlock(this.gameState[i][j]);
+				// blockremplace.addBlock(this.gameState[i + cpt][j]);
+				// this.gameState[i + cpt][j] = blockremplace;
+				// blockdeplace = new
+				// BlockEmpty(Polydash.res.getTexture("empty"));// TODO
+				// image
+				// a
+				// modifier
+				// break;
 			} else if (this.gameState[i + cpt][j] instanceof Character) {
 				Character player = (Character) this.gameState[i + cpt][j];
 				player.setAlive(false);
-				//blockdeplace = new BlockEmpty(Polydash.res.getTexture("empty"));// TODO
-																		// image
-																		// a
-																		// modifier
+				// blockdeplace = new
+				// BlockEmpty(Polydash.res.getTexture("empty"));// TODO
+				// image
+				// a
+				// modifier
 				blockremplace = new BlockEmpty(Polydash.res.getTexture("empty"));
-			}else if (this.gameState[i + cpt][j] instanceof BlockFix){
+			} else if (this.gameState[i + cpt][j] instanceof BlockFix) {
 				cpt--;
 				break;
 			} else {
@@ -176,7 +222,7 @@ public class GameState {
 			}
 		}
 		this.gameState[i][j] = blockremplace;
-		this.gameState[i+cpt][j] = blockdeplace;
+		this.gameState[i + cpt][j] = blockdeplace;
 	}
 
 	public Block[][] getGameState() {
