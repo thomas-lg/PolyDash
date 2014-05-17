@@ -2,7 +2,7 @@ package polytech.polydash.utils;
 
 /**
  * 
- * @author Thomas
+ * @author Thomas Le Gougaud
  *
  */
 public final class Var {

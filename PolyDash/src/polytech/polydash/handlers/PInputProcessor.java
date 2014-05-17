@@ -8,7 +8,7 @@ import com.badlogic.gdx.InputProcessor;
 
 /**
  * Gestion des inputs
- * @author Thomas
+ * @author Thomas Le Gougaud
  * 
  */
 public class PInputProcessor implements InputProcessor {

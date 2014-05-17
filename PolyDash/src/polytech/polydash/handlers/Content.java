@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 /**
  * HashMap des ressources
- * @author Thomas
+ * @author Thomas Le Gougaud
  */
 public class Content {
 	

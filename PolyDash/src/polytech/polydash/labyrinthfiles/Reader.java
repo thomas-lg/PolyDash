@@ -19,8 +19,7 @@ import polytech.polydash.utils.Var;
 
 /**
  * 
- * @author Florian Bonniec
- * @worker Florian Bonniec, Antoine Pasquier
+ * @author Florian Bonniec,Antoine Pasquier
  *
  */
 public class Reader {

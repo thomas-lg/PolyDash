@@ -18,7 +18,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * 
- * @author Thomas
+ * @author Thomas Le Gougaud
  * 
  */
 public class Polydash extends Game {

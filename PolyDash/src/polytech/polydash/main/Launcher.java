@@ -7,7 +7,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 /**
  * 
- * @author Thomas
+ * @author Thomas Le Gougaud
  * 
  */
 public class Launcher {

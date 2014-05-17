@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * 
- * @author Thomas
+ * @author Thomas Le Gougaud
  *
  */
 public class GameScreen implements Screen {
