@@ -8,7 +8,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 /**
  * 
  * @author Thomas
- *
+ * 
  */
 public class Launcher {
 
@@ -21,7 +21,10 @@ public class Launcher {
 		cfg.width = Var.V_WIDTH * Var.SCALE;
 		cfg.height = Var.V_HEIGHT * Var.SCALE;
 		cfg.useGL20 = false;
+		if (args.length == 1) {
+			System.out.println(args[0]);
+			Var.LEVEL = args[0];
+		}
 		new LwjglApplication(new Polydash(), cfg);
 	}
-
 }

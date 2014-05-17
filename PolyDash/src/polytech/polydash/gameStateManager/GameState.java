@@ -1,7 +1,6 @@
 package polytech.polydash.gameStateManager;
 
 import polytech.polydash.draughtboardmanagement.Block;
-import polytech.polydash.draughtboardmanagement.BlockComposite;
 import polytech.polydash.draughtboardmanagement.BlockEmpty;
 import polytech.polydash.draughtboardmanagement.BlockFix;
 import polytech.polydash.draughtboardmanagement.BlockGem;
@@ -90,35 +89,42 @@ public class GameState {
 	}
 
 	/**
-	 * Gestion du mouvement du personnage à l'écran, lors de déplacement
-	 * type : Gauche, Droite, Haut, Bas
+	 * Gestion du mouvement du personnage à l'écran, lors de déplacement type :
+	 * Gauche, Droite, Haut, Bas
+	 * 
 	 * @param m
 	 */
 	public void move(Move m) {
 		int x = xCharacter, y = yCharacter;
 		Block charac;
 		if (m == Var.Move.RIGHT) {
-			if (gameState[xCharacter][yCharacter + 1] instanceof BlockEmpty
-					&& yCharacter + 1 < 20 && yCharacter + 1 >= 0) {
+			if (yCharacter + 1 < 20
+					&& yCharacter + 1 >= 0
+					&& gameState[xCharacter][yCharacter + 1] instanceof BlockEmpty) {
 				y = yCharacter + 1;
+				Var.SCORE++;
 			}
 		}
 		if (m == Var.Move.LEFT) {
-			if (gameState[xCharacter][yCharacter - 1] instanceof BlockEmpty
-					&& yCharacter - 1 < 20 && yCharacter - 1 >= 0) {
+			if (yCharacter - 1 < 20
+					&& yCharacter - 1 >= 0
+					&& gameState[xCharacter][yCharacter - 1] instanceof BlockEmpty) {
 				y = yCharacter - 1;
+				Var.SCORE++;
 			}
 		}
 		if (m == Var.Move.DOWN) {
-			if (gameState[xCharacter + 1][yCharacter] instanceof BlockEmpty
-					&& xCharacter + 1 < 20 && xCharacter + 1 >= 0) {
+			if (xCharacter + 1 < 20
+					&& xCharacter + 1 >= 0
+					&& gameState[xCharacter + 1][yCharacter] instanceof BlockEmpty) {
 				x = xCharacter + 1;
+				Var.SCORE++;
 			}
 		}
 		if (m == Var.Move.UP) {
-			if ((gameState[xCharacter - 1][yCharacter] instanceof BlockEmpty)
-					&& xCharacter - 1 < 20 && xCharacter - 1 >= 0) {
+			if ((xCharacter - 1 < 20 && xCharacter - 1 >= 0 && gameState[xCharacter - 1][yCharacter] instanceof BlockEmpty)) {
 				x = xCharacter - 1;
+				Var.SCORE++;
 			}
 		}
 		charac = gameState[xCharacter][yCharacter];

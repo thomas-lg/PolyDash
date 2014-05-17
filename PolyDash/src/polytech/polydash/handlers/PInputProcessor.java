@@ -25,7 +25,6 @@ public class PInputProcessor implements InputProcessor {
 	
 	@Override
 	public boolean keyDown(int k) {
-		Var.SCORE++;
 		if (k == Keys.RIGHT)
 			gs.move(Var.Move.RIGHT);
 		if (k == Keys.LEFT) {

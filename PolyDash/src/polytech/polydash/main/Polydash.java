@@ -33,7 +33,8 @@ public class Polydash extends Game {
 	 */
 	public void create() {
 		res = new Content();
-
+		
+		
 		res.loadTexture("res" + File.separator + "fix_bloc.png");
 		res.loadTexture("res" + File.separator + "empty.png");
 		res.loadTexture("res" + File.separator + "mobile_bloc.png");
@@ -47,7 +48,7 @@ public class Polydash extends Game {
 
 		this.setScreen(new GameScreen(this));
 
-		Reader r = new Reader("level" + File.separator + "level.txt");
+		Reader r = new Reader("level" + File.separator + Var.LEVEL);
 		Block[][] dammier = new Block[Var.NBROW][Var.NBROW];
 		try {
 			dammier = r.readFile();
@@ -131,7 +132,6 @@ public class Polydash extends Game {
 	 * @return gs
 	 */
 	public GameState getGs() {
-		//printDammier(gs.getGameState());
 		return gs;
 	}
 	
