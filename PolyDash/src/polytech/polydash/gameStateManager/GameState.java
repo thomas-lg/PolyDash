@@ -24,6 +24,10 @@ public class GameState {
 	private int nbGem;
 	private boolean alive;
 
+	/**
+	 * Constructeur du plateau
+	 * @param gameState
+	 */
 	public GameState(Block[][] gameState) {
 		super();
 		alive = true;
@@ -43,7 +47,6 @@ public class GameState {
 	}
 
 	public void leftRotationGameState() {
-		System.out.println("Rotation gauche");
 		Block[][] newGameState = new Block[Var.NBROW][Var.NBROW];
 		for (int i = 0; i < Var.NBROW; i++) {
 			for (int j = 0; j < Var.NBROW; j++) {
@@ -58,7 +61,6 @@ public class GameState {
 	}
 
 	public void rightRotationGameState() {
-		System.out.println("Rotation droite");
 		Block[][] newGameState = new Block[Var.NBROW][Var.NBROW];
 		for (int i = 0; i < Var.NBROW; i++) {
 			for (int j = 0; j < Var.NBROW; j++) {
@@ -232,8 +234,6 @@ public class GameState {
 			xCharacter = x;
 			yCharacter = y;
 			this.checkGameState();
-			System.out.println(nbGem);
-			// System.out.println("x : " + xCharacter + " y : " + yCharacter);
 		}
 	}
 
@@ -398,6 +398,9 @@ public class GameState {
 
 	}
 
+	/**
+	 * Verifie si les condition de défaite sont remplies
+	 */
 	private void checkLose() {
 		if (!alive) {
 			for (int i = 0; i < Var.NBROW; i++) {

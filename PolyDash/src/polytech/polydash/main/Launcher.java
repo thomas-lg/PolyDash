@@ -22,7 +22,6 @@ public class Launcher {
 		cfg.height = Var.V_HEIGHT * Var.SCALE;
 		cfg.useGL20 = false;
 		if (args.length == 1) {
-			System.out.println(args[0]);
 			Var.LEVEL = args[0];
 		}
 		new LwjglApplication(new Polydash(), cfg);
