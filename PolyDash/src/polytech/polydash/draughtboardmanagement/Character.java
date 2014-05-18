@@ -2,9 +2,14 @@ package polytech.polydash.draughtboardmanagement;
 
 import com.badlogic.gdx.graphics.Texture;
 
+/**
+ * 
+ * @author Florian Bonniec
+ *
+ */
+
 public class Character extends Block {
 	private boolean alive;
-	private int moves=567;
 	
 	public Character(Texture text){
 		super(text);
@@ -34,10 +39,6 @@ public class Character extends Block {
 	public void addBlock(Block b) {
 		throw new UnsupportedOperationException();
 		
-	}
-	public int getMoves() 
-	{
-		return moves;
 	}
 	
 

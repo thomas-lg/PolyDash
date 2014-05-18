@@ -3,6 +3,12 @@ package polytech.polydash.draughtboardmanagement;
 import com.badlogic.gdx.graphics.Texture;
 
 public class BlockFix extends Block {
+	
+	/**
+	 * 
+	 * @author Florian Bonniec, Thomas Le Gougaud
+	 *
+	 */
 
 	public BlockFix(Texture text) {
 		super(text);

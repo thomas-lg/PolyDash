@@ -2,6 +2,12 @@ package polytech.polydash.draughtboardmanagement;
 
 import com.badlogic.gdx.graphics.Texture;
 
+/**
+ * 
+ * @author Florian Bonniec
+ *
+ */
+
 public class BlockComposite extends BlockSpecial{
 	private BlockSpecial[] blockComposite;
 	private int nbComposite = 0;

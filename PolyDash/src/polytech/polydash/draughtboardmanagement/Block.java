@@ -2,6 +2,12 @@ package polytech.polydash.draughtboardmanagement;
 
 import com.badlogic.gdx.graphics.Texture;
 
+/**
+ * 
+ * @author Florian Bonniec, Thomas Le Gougaud
+ *
+ */
+
 public abstract class Block {
 	
 	private Texture texture;
