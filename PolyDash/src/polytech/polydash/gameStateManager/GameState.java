@@ -139,6 +139,18 @@ public class GameState {
 					Var.SCORE++;
 					nbGem--;
 					move = true;
+				}else if(yCharacter + 2 < 20
+						&& yCharacter + 2 >= 0
+						&& gameState[xCharacter][yCharacter + 1] instanceof BlockMovable
+						&& gameState[xCharacter][yCharacter + 2] instanceof BlockGem){
+					BlockComposite bc = new BlockComposite(
+							Polydash.res.getTexture("mobile_bloc"));
+					bc.addBlock(this.gameState[xCharacter][yCharacter + 1]);
+					bc.addBlock(this.gameState[xCharacter][yCharacter + 2]);
+					gameState[x][y + 2] = bc;
+					y = yCharacter + 1;
+					Var.SCORE++;
+					move = true;
 				}
 			}
 		} else if (m == Var.Move.LEFT) {
@@ -170,6 +182,19 @@ public class GameState {
 					Var.SCORE++;
 					nbGem--;
 					move = true;
+				}else if(yCharacter - 2 < 20
+						&& yCharacter - 2 >= 0
+						&& gameState[xCharacter][yCharacter - 1] instanceof BlockMovable
+						&& gameState[xCharacter][yCharacter - 2] instanceof BlockGem){
+					BlockComposite bc = new BlockComposite(
+							Polydash.res.getTexture("mobile_bloc"));
+					bc.addBlock(this.gameState[xCharacter][yCharacter - 1]);
+					bc.addBlock(this.gameState[xCharacter][yCharacter - 2]);
+					gameState[x][y - 2] = bc;
+					y = yCharacter - 1;
+					Var.SCORE++;
+					move = true;
+						
 				}
 			}
 		} else if (m == Var.Move.DOWN) {
