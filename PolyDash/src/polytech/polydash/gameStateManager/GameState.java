@@ -14,7 +14,7 @@ import polytech.polydash.utils.Var.Move;
 /**
  * 
  * @author Florian Bonniec, Thomas Le Gougaud
- *
+ * 
  */
 public class GameState {
 
@@ -22,9 +22,11 @@ public class GameState {
 	private int xCharacter;
 	private int yCharacter;
 	private int nbGem;
+	private boolean alive;
 
 	public GameState(Block[][] gameState) {
 		super();
+		alive = true;
 		nbGem = 0;
 		this.setGameState(gameState);
 		for (int i = 0; i < Var.NBROW; i++) {
@@ -83,16 +85,19 @@ public class GameState {
 	public void checkGameState() {
 		for (int i = Var.NBROW - 1; i >= 0; i--) {
 			for (int j = Var.NBROW - 1; j >= 0; j--) {
-				if(this.gameState[i][j] instanceof BlockMovable) {
+				if (this.gameState[i][j] instanceof BlockMovable) {
 					movableBlockTraitement(i, j);
 				}
-				  if(this.gameState[i][j] instanceof BlockComposite) {
-					  if(i+1<Var.NBROW && this.gameState[i+1][j] instanceof BlockEmpty){
-						  compositeBlockTraitement(i,j);
-					  }
-				  }
+				if (this.gameState[i][j] instanceof BlockComposite) {
+					if (i + 1 < Var.NBROW
+							&& this.gameState[i + 1][j] instanceof BlockEmpty) {
+						compositeBlockTraitement(i, j);
+					}
+				}
 			}
 		}
+		this.checkWin();
+		this.checkLose();
 	}
 
 	/**
@@ -124,6 +129,16 @@ public class GameState {
 					y = yCharacter + 1;
 					Var.SCORE++;
 					move = true;
+				} else if (yCharacter + 2 < 20
+						&& yCharacter + 2 >= 0
+						&& gameState[xCharacter][yCharacter + 1] instanceof BlockComposite
+						&& gameState[xCharacter][yCharacter + 2] instanceof BlockEmpty) {
+					gameState[x][y + 2] = new BlockMovable(
+							Polydash.res.getTexture("mobile_bloc"));
+					y = yCharacter + 1;
+					Var.SCORE++;
+					nbGem--;
+					move = true;
 				}
 			}
 		} else if (m == Var.Move.LEFT) {
@@ -145,6 +160,16 @@ public class GameState {
 					y = yCharacter - 1;
 					Var.SCORE++;
 					move = true;
+				} else if (yCharacter - 2 < 20
+						&& yCharacter - 2 >= 0
+						&& gameState[xCharacter][yCharacter - 1] instanceof BlockComposite
+						&& gameState[xCharacter][yCharacter - 2] instanceof BlockEmpty) {
+					gameState[x][y - 2] = new BlockMovable(
+							Polydash.res.getTexture("mobile_bloc"));
+					y = yCharacter - 1;
+					Var.SCORE++;
+					nbGem--;
+					move = true;
 				}
 			}
 		} else if (m == Var.Move.DOWN) {
@@ -157,14 +182,6 @@ public class GameState {
 					x = xCharacter + 1;
 					Var.SCORE++;
 					this.nbGem--;
-					move = true;
-				} else if (xCharacter + 1 < 20
-						&& xCharacter + 1 >= 0
-						&& gameState[xCharacter + 1][yCharacter] instanceof BlockMovable
-						&& gameState[xCharacter + 2][yCharacter] instanceof BlockEmpty) {
-					gameState[xCharacter + 2][y] = gameState[x + 1][y];
-					x = xCharacter + 1;
-					Var.SCORE++;
 					move = true;
 				}
 			}
@@ -179,14 +196,6 @@ public class GameState {
 					Var.SCORE++;
 					this.nbGem--;
 					move = true;
-				} else if (xCharacter - 1 < 20
-						&& xCharacter - 1 >= 0
-						&& gameState[xCharacter - 1][yCharacter] instanceof BlockMovable
-						&& gameState[xCharacter - 2][yCharacter] instanceof BlockEmpty) {
-					gameState[xCharacter - 2][y] = gameState[x - 1][y];
-					x = xCharacter - 1;
-					Var.SCORE++;
-					move = true;
 				}
 			}
 		}
@@ -197,49 +206,50 @@ public class GameState {
 					Polydash.res.getTexture("empty"));
 			xCharacter = x;
 			yCharacter = y;
-			//this.checkGameState();
-			//System.out.println("x : " + xCharacter + " y : " + yCharacter);
+			this.checkGameState();
+			System.out.println(nbGem);
+			// System.out.println("x : " + xCharacter + " y : " + yCharacter);
 		}
-		//System.out.println("x : " + xCharacter + " y : " + yCharacter);
 	}
-	
-	private void compositeBlockTraitement(int i, int j){
+
+	private void compositeBlockTraitement(int i, int j) {
 		Block bm = this.gameState[i][j].getMovableFromComposite();
 		Block bg = this.gameState[i][j].getGemFromComposite();
 		this.gameState[i][j] = bm;
-		movableBlockTraitement(i,j);
+		movableBlockTraitement(i, j);
 		this.gameState[i][j] = bg;
-		
-		
 	}
 
 	private void movableBlockTraitement(int i, int j) {
 		Block blockdeplace = this.gameState[i][j];
 		Block blockremplace = this.gameState[i][j];
 		Character player = null;
-		int cpt = i+1;
+		int cpt = i + 1;
 		boolean trouve = false;
-		while(cpt<Var.NBROW && !trouve){
+		while (cpt < Var.NBROW && !trouve) {
 			if (this.gameState[cpt][j] instanceof BlockEmpty) {
 				cpt++;
 				blockremplace = this.gameState[cpt][j];
 			} else if (this.gameState[cpt][j] instanceof BlockGem) {
-				if(cpt+1<Var.NBROW && !(this.gameState[cpt+1][j] instanceof BlockEmpty)){
+				if (cpt + 1 < Var.NBROW
+						&& !(this.gameState[cpt + 1][j] instanceof BlockEmpty)) {
 					blockdeplace = new BlockComposite(
-							 Polydash.res.getTexture("mobile_bloc")); // TODO image a
+							Polydash.res.getTexture("mobile_bloc"));
 					blockdeplace.addBlock(this.gameState[i][j]);
 					blockdeplace.addBlock(this.gameState[cpt][j]);
-							 blockremplace = new BlockEmpty(Polydash.res.getTexture("empty"));
-							 trouve = true;
-					
-				}else{
-					
-				cpt++;
-				blockremplace = this.gameState[cpt][j];
+					blockremplace = new BlockEmpty(
+							Polydash.res.getTexture("empty"));
+					trouve = true;
+
+				} else {
+
+					cpt++;
+					blockremplace = this.gameState[cpt][j];
 				}
 			} else if (this.gameState[cpt][j] instanceof Character) {
 				player = (Character) this.gameState[cpt][j];
 				player.setAlive(false);
+				alive=false;
 				cpt++;
 			} else if (this.gameState[cpt][j] instanceof BlockFix) {
 				cpt--;
@@ -252,29 +262,37 @@ public class GameState {
 			}
 
 		}
-		//System.out.println("cpt: "+cpt);
-		if(player!=null){
-			if(!player.isAlive()){
+		if (player != null) {
+			if (!player.isAlive()) {
 				blockremplace = new BlockEmpty(Polydash.res.getTexture("empty"));
-				}
 			}
+		}
 		this.gameState[i][j] = blockremplace;
 		this.gameState[cpt][j] = blockdeplace;
-		//this.checkWin();
 	}
 
 	/**
 	 * Verifie si les condition de victoire sont remplies
 	 */
 	private void checkWin() {
-		if(nbGem == 0)
+		if (nbGem == 0)
 			for (int i = 0; i < Var.NBROW; i++) {
 				for (int j = 0; j < Var.NBROW; j++) {
 					gameState[i][j] = new BlockEmpty(
 							Polydash.res.getTexture("empty"));
 				}
 			}
+	}
 
+	private void checkLose() {
+		if (!alive) {
+			for (int i = 0; i < Var.NBROW; i++) {
+				for (int j = 0; j < Var.NBROW; j++) {
+					gameState[i][j] = new BlockFix(
+							Polydash.res.getTexture("fix_bloc"));
+				}
+			}
+		}
 	}
 
 	public Block[][] getGameState() {

@@ -24,7 +24,7 @@ public final class Var {
 	//Score
 	public static int SCORE = 0;
 	
-	public static String LEVEL = "level2.txt";
+	public static String LEVEL = "level1.pdash";
 	
 	
 

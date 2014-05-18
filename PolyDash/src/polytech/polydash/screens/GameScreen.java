@@ -54,6 +54,7 @@ public class GameScreen implements Screen {
 
 		game.getBatch().begin();
 		
+		game.getGs().checkGameState();
 		printScore(String.valueOf(Var.SCORE), 10, 350);
 		printGrid();
 

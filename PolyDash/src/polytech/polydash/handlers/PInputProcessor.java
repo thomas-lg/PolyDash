@@ -8,6 +8,7 @@ import com.badlogic.gdx.InputProcessor;
 
 /**
  * Gestion des inputs
+ * 
  * @author Thomas Le Gougaud
  * 
  */
@@ -17,16 +18,18 @@ public class PInputProcessor implements InputProcessor {
 
 	/**
 	 * Constructeur
+	 * 
 	 * @param gs
 	 */
 	public PInputProcessor(GameState gs) {
 		this.gs = gs;
 	}
-	
+
 	@Override
 	public boolean keyDown(int k) {
-		if (k == Keys.RIGHT)
+		if (k == Keys.RIGHT) {
 			gs.move(Var.Move.RIGHT);
+		}
 		if (k == Keys.LEFT) {
 			gs.move(Var.Move.LEFT);
 		}
