@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * 
  * @author Florian Bonniec, Thomas Le Gougaud
- *
+ * 
  */
 
 public abstract class BlockSpecial extends Block {
@@ -13,6 +13,7 @@ public abstract class BlockSpecial extends Block {
 	public BlockSpecial(Texture text) {
 		super(text);
 	}
+
 	@Override
 	public abstract Block getMovableFromComposite();
 

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * 
  * @author Florian Bonniec, Thomas Le Gougaud
- *
+ * 
  */
 
 public class BlockEmpty extends Block {
@@ -15,11 +15,11 @@ public class BlockEmpty extends Block {
 		// TODO Auto-generated constructor stub
 	}
 
-
 	@Override
 	public String toString() {
 		return "_";
 	}
+
 	@Override
 	public Block getMovableFromComposite() {
 		throw new UnsupportedOperationException();
@@ -33,8 +33,7 @@ public class BlockEmpty extends Block {
 	@Override
 	public void addBlock(Block b) {
 		throw new UnsupportedOperationException();
-		
+
 	}
-	
 
 }

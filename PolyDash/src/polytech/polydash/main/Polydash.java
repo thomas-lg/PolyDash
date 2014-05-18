@@ -29,21 +29,22 @@ public class Polydash extends Game {
 	private GameState gs;
 
 	/**
-	 * Init de tous les fichiers de ressources, de la gestion des inputs et du damier
+	 * Init de tous les fichiers de ressources, de la gestion des inputs et du
+	 * damier
 	 */
 	public void create() {
 		res = new Content();
-		
-		
+
 		res.loadTexture("res" + File.separator + "fix_bloc.png");
 		res.loadTexture("res" + File.separator + "empty.png");
 		res.loadTexture("res" + File.separator + "mobile_bloc.png");
 		res.loadTexture("res" + File.separator + "ruby.png");
 		res.loadTexture("res" + File.separator + "miner.png");
 		res.loadTexture("res" + File.separator + "miner_move.png");
+		res.loadTexture("res" + File.separator + "score.png");
+		res.loadTexture("res" + File.separator + "chiffres.png");
 
 		batch = new SpriteBatch();
-		// Use LibGDX's default Arial font.
 		font = new BitmapFont();
 
 		this.setScreen(new GameScreen(this));
@@ -53,17 +54,9 @@ public class Polydash extends Game {
 		try {
 			dammier = r.readFile();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		gs = new GameState(dammier);
-	//	printDammier(gs.getGameState());
-//		gs.leftRotation();
-//		printDammier(gs.getGameState());
-//		gs.checkGameState();
-//		gs.rightRotation();
-//		gs.checkGameState();
-//		printDammier(gs.getGameState());
 		Gdx.input.setInputProcessor(new PInputProcessor(gs));
 	}
 
@@ -73,45 +66,11 @@ public class Polydash extends Game {
 	}
 
 	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void render() {
 		super.render();
 	}
 
-	@Override
-	public void resize(int arg0, int arg1) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public static void printDammier(Block[][] dammier) {
-		System.out.println("Debut Dammier");
-		try {
-			for (int i = 0; i < Var.NBROW; i++) {
-				for (int j = 0; j < Var.NBROW; j++) {
-					System.out.print(dammier[i][j].toString());
-				}
-				System.out.println();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		System.out.println("Fin Dammier");
-
-	}
-
-	/**
+		/**
 	 * 
 	 * @return batch
 	 */
@@ -134,7 +93,11 @@ public class Polydash extends Game {
 	public GameState getGs() {
 		return gs;
 	}
-	
+
+	/**
+	 * 
+	 * @param gs
+	 */
 	public void setGs(GameState gs) {
 		this.gs = gs;
 	}

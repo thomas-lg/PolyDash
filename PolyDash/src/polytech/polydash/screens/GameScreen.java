@@ -13,17 +13,36 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 /**
  * 
  * @author Thomas Le Gougaud
- *
+ * 
  */
 public class GameScreen implements Screen {
 	final Polydash game;
 
 	/**
 	 * Constructeur de l'écran du jeu
+	 * 
 	 * @param game
 	 */
 	public GameScreen(Polydash game) {
 		this.game = game;
+	}
+
+	@Override
+	public void resize(int arg0, int arg1) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -53,9 +72,9 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		game.getBatch().begin();
-		
+
 		game.getGs().checkGameState();
-		printScore(String.valueOf(Var.SCORE), 10, 350);
+		printScore(String.valueOf(Var.SCORE));
 		printGrid();
 
 		game.getBatch().end();
@@ -66,15 +85,15 @@ public class GameScreen implements Screen {
 	 */
 	private void printGrid() {
 		Block[][] grid = game.getGs().getGameState();
-		float x = 100;
-		float y = Var.V_HEIGHT-50;
+		int x = 28;
+		int y = Var.V_HEIGHT - 75;
 		for (int i = 0; i < Var.NBROW; i++) {
 			for (int j = 0; j < Var.NBROW; j++) {
 				game.getBatch().draw(grid[i][j].getImg(), x, y);
 				x = x + 32;
 			}
-			x = 100;
-			y = y-32;
+			x = 28;
+			y = y - 32;
 
 		}
 	}
@@ -86,37 +105,24 @@ public class GameScreen implements Screen {
 	 * @param x
 	 * @param y
 	 */
-	private void printScore(String s, int x, int y) {
-		Texture texture = new Texture(Gdx.files.internal("res/chiffres.png"));
-		TextureRegion[] font = new TextureRegion[8];
-		for (int i = 0; i < 8; i++) {
+	private void printScore(String s) {
+		Texture score = Polydash.res.getTexture("score");
+		Texture texture = Polydash.res.getTexture("chiffres");
+		TextureRegion[] font = new TextureRegion[10];
+		int x = 28;
+		int y = Var.V_HEIGHT - 40;
+		game.getBatch().draw(score, x, y);
+
+		for (int i = 0; i < 10; i++) {
 			font[i] = new TextureRegion(texture, i * 32, 0, 32, 32);
 		}
 		for (int i = 0; i < s.length(); i++) {
 			char c = s.charAt(i);
-			if (c >= '0' && c < '8') {
+			if (c >= '0' && c <= '9') {
 				c -= '0';
-				game.getBatch().draw(font[c], x + i * 28, y);
+				game.getBatch().draw(font[c], x + 150 + i * 28, y);
 			}
 		}
-	}
-
-	@Override
-	public void resize(int arg0, int arg1) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
-
 	}
 
 }
