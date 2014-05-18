@@ -44,7 +44,7 @@ public class BlockComposite extends BlockSpecial{
 	public void addBlock(Block b) {
 		if(nbComposite<2){
 			blockComposite[nbComposite] = (BlockSpecial) b;
-			System.out.println("<"+b.toString()+">");
+			//System.out.println("<"+b.toString()+">");
 			nbComposite++;
 		}
 		
