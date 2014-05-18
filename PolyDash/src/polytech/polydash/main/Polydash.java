@@ -70,7 +70,7 @@ public class Polydash extends Game {
 		super.render();
 	}
 
-		/**
+	/**
 	 * 
 	 * @return batch
 	 */

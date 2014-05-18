@@ -26,6 +26,7 @@ public class GameState {
 
 	/**
 	 * Constructeur du plateau
+	 * 
 	 * @param gameState
 	 */
 	public GameState(Block[][] gameState) {
@@ -395,7 +396,6 @@ public class GameState {
 					}
 				}
 			}
-
 	}
 
 	/**
