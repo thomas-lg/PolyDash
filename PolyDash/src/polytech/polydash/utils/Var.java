@@ -14,8 +14,8 @@ public final class Var {
 
 	// Gestion du fenêtrage
 	public static final String TITLE = "Polydash";
-	public static final int V_WIDTH = 700;
-	public static final int V_HEIGHT = 690;
+	public static final int V_WIDTH = 1024;
+	public static final int V_HEIGHT = 768;
 	public static final int SCALE = 1;
 
 	// Gestion du damier

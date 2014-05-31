@@ -68,11 +68,11 @@ public class GameScreen implements Screen {
 	 */
 	@Override
 	public void render(float arg0) {
-		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
+		//Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+		//Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		game.getBatch().begin();
-
+		game.getBatch().draw(Polydash.res.getTexture("background"), 0, 0);
 		game.getGs().checkGameState();
 		printScore(String.valueOf(Var.SCORE));
 		printGrid();
@@ -85,16 +85,15 @@ public class GameScreen implements Screen {
 	 */
 	private void printGrid() {
 		Block[][] grid = game.getGs().getGameState();
-		int x = 28;
-		int y = Var.V_HEIGHT - 75;
+		int x = Var.V_WIDTH / 2 - 32 * 10;
+		int y = Var.V_HEIGHT - 120;
 		for (int i = 0; i < Var.NBROW; i++) {
 			for (int j = 0; j < Var.NBROW; j++) {
 				game.getBatch().draw(grid[i][j].getImg(), x, y);
 				x = x + 32;
 			}
-			x = 28;
+			x = Var.V_WIDTH / 2 - 32 * 10;
 			y = y - 32;
-
 		}
 	}
 
@@ -109,8 +108,8 @@ public class GameScreen implements Screen {
 		Texture score = Polydash.res.getTexture("score");
 		Texture texture = Polydash.res.getTexture("chiffres");
 		TextureRegion[] font = new TextureRegion[10];
-		int x = 28;
-		int y = Var.V_HEIGHT - 40;
+		int x = Var.V_WIDTH / 2 - 32 * 3;
+		int y = Var.V_HEIGHT - 60;
 		game.getBatch().draw(score, x, y);
 
 		for (int i = 0; i < 10; i++) {
@@ -124,5 +123,4 @@ public class GameScreen implements Screen {
 			}
 		}
 	}
-
 }

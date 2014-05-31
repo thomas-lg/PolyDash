@@ -43,7 +43,8 @@ public class Polydash extends Game {
 		res.loadTexture("res" + File.separator + "miner_move.png");
 		res.loadTexture("res" + File.separator + "score.png");
 		res.loadTexture("res" + File.separator + "chiffres.png");
-
+		res.loadTexture("res" + File.separator + "background.png");
+		
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 
