@@ -4,9 +4,7 @@ import polytech.polydash.draughtboardmanagement.Block;
 import polytech.polydash.main.Polydash;
 import polytech.polydash.utils.Var;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -68,10 +66,8 @@ public class GameScreen implements Screen {
 	 */
 	@Override
 	public void render(float arg0) {
-
-		//Gdx.gl.glClearColor(0, 0, 0.2f, 1);
-		//Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		game.getBatch().begin();
+		
 		game.getBatch().draw(Polydash.res.getTexture("background"), 0, 0);
 		game.getGs().checkGameState();
 		printScore(String.valueOf(Var.SCORE));
@@ -85,12 +81,32 @@ public class GameScreen implements Screen {
 	 */
 	private void printGrid() {
 		Block[][] grid = game.getGs().getGameState();
+
 		int x = Var.V_WIDTH / 2 - 32 * 10;
 		int y = Var.V_HEIGHT - 120;
+		int iCharac = game.getGs().getxCharacter();
+		int jCharac = game.getGs().getyCharacter();
+
 		for (int i = 0; i < Var.NBROW; i++) {
 			for (int j = 0; j < Var.NBROW; j++) {
-				game.getBatch().draw(grid[i][j].getImg(), x, y);
-				x = x + 32;
+				if (i == iCharac && j == jCharac) {
+					if(game.getGs().isMove()) {
+						game.getBatch().draw(Polydash.res.getTexture("miner_move"), x, y);
+						try {
+							Thread.sleep(150);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						game.getGs().setMove(false);
+					}
+					else{
+						game.getBatch().draw(Polydash.res.getTexture("miner"), x, y);
+					}
+					x = x + 32;
+				} else {
+					game.getBatch().draw(grid[i][j].getImg(), x, y);
+					x = x + 32;
+				}
 			}
 			x = Var.V_WIDTH / 2 - 32 * 10;
 			y = y - 32;

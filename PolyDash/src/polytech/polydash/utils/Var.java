@@ -1,5 +1,6 @@
 package polytech.polydash.utils;
 
+
 /**
  * 
  * @author Thomas Le Gougaud
@@ -25,5 +26,4 @@ public final class Var {
 	public static int SCORE = 0;
 
 	public static String LEVEL = "level1.pdash";
-
 }

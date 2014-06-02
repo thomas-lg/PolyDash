@@ -22,7 +22,8 @@ public class GameState {
 	private int xCharacter;
 	private int yCharacter;
 	private int nbGem;
-	private boolean alive;
+	// private boolean alive;
+	private boolean move;
 
 	/**
 	 * Constructeur du plateau
@@ -31,7 +32,8 @@ public class GameState {
 	 */
 	public GameState(Block[][] gameState) {
 		super();
-		alive = true;
+		move = false;
+		// alive = true;
 		nbGem = 0;
 		this.setGameState(gameState);
 		for (int i = 0; i < Var.NBROW; i++) {
@@ -47,6 +49,9 @@ public class GameState {
 		}
 	}
 
+	/**
+	 * Procède a la rotation gauche du tableau de jeu dans le gamestate
+	 */
 	public void leftRotationGameState() {
 		Block[][] newGameState = new Block[Var.NBROW][Var.NBROW];
 		for (int i = 0; i < Var.NBROW; i++) {
@@ -58,9 +63,13 @@ public class GameState {
 				}
 			}
 		}
+		Var.SCORE++;
 		this.setGameState(newGameState);
 	}
 
+	/**
+	 * Procède a la rotation droite du tableau de jeu dans le gamestate
+	 */
 	public void rightRotationGameState() {
 		Block[][] newGameState = new Block[Var.NBROW][Var.NBROW];
 		for (int i = 0; i < Var.NBROW; i++) {
@@ -72,19 +81,30 @@ public class GameState {
 				}
 			}
 		}
+		Var.SCORE++;
 		this.setGameState(newGameState);
 	}
 
+	/**
+	 * Initie la rotation droite et vérifie l'état du jeu
+	 */
 	public void rightRotation() {
 		rightRotationGameState();
 		this.checkGameState();
 	}
 
+	/**
+	 * Initie la rotation gauche et vérifie l'état du jeu
+	 */	
 	public void leftRotation() {
 		leftRotationGameState();
 		this.checkGameState();
 	}
 
+	/**
+	 * Vérifie entièrement l'état du jeu
+	 * Si des blocs doivent tomber si le joueur est vivant/mort, gagnez/perdu
+	 */
 	public void checkGameState() {
 		for (int i = Var.NBROW - 1; i >= 0; i--) {
 			for (int j = Var.NBROW - 1; j >= 0; j--) {
@@ -99,8 +119,8 @@ public class GameState {
 				}
 			}
 		}
-		this.checkWin();
-		this.checkLose();
+		// this.checkWin();
+		// this.checkLose();
 	}
 
 	/**
@@ -110,6 +130,7 @@ public class GameState {
 	 * @param m
 	 */
 	public void move(Move m) {
+		move = true;
 		boolean move = false;
 		int x = xCharacter, y = yCharacter;
 		Block charac;
@@ -234,10 +255,16 @@ public class GameState {
 					Polydash.res.getTexture("empty"));
 			xCharacter = x;
 			yCharacter = y;
+			move = false;
 			this.checkGameState();
 		}
 	}
 
+	/**
+	 * Gestion des blocs composite (BlockMovable+BlockGem)
+	 * @param i
+	 * @param j
+	 */
 	private void compositeBlockTraitement(int i, int j) {
 		Block bm = this.gameState[i][j].getMovableFromComposite();
 		Block bg = this.gameState[i][j].getGemFromComposite();
@@ -246,6 +273,11 @@ public class GameState {
 		this.gameState[i][j] = bg;
 	}
 
+	/**
+	 * Gestion du déplacement d'un blocs
+	 * @param i
+	 * @param j
+	 */
 	private void movableBlockTraitement(int i, int j) {
 		Block blockdeplace = this.gameState[i][j];
 		Block blockremplace = this.gameState[i][j];
@@ -275,7 +307,7 @@ public class GameState {
 			} else if (this.gameState[cpt][j] instanceof Character) {
 				player = (Character) this.gameState[cpt][j];
 				player.setAlive(false);
-				alive = false;
+				// alive = false;
 				cpt++;
 			} else if (this.gameState[cpt][j] instanceof BlockFix) {
 				cpt--;
@@ -297,151 +329,198 @@ public class GameState {
 		this.gameState[cpt][j] = blockdeplace;
 	}
 
-	/**
-	 * Verifie si les condition de victoire sont remplies
-	 */
-	private void checkWin() {
-		if (nbGem == 0)
-			for (int i = 0; i < Var.NBROW; i++) {
-				for (int j = 0; j < Var.NBROW; j++) {
-					if (i == 7 && j == 0) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 9 && j == 1) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 11 && j == 2) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 9 && j == 3) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 7 && j == 4) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 9 && j == 5) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 11 && j == 6) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 9 && j == 7) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 7 && j == 8) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 7 && j == 11) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 8 && j == 11) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 9 && j == 11) {
-						gameState[i][j] = new Character(
-								Polydash.res.getTexture("miner"));
-						xCharacter = i;
-						yCharacter = j;
-					} else if (i == 10 && j == 11) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 11 && j == 11) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 7 && j == 14) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 8 && j == 14) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 9 && j == 14) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 10 && j == 14) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 11 && j == 14) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 8 && j == 15) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 9 && j == 16) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 10 && j == 17) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 10 && j == 18) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 7 && j == 18) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 8 && j == 18) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 9 && j == 18) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 10 && j == 18) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else if (i == 11 && j == 18) {
-						gameState[i][j] = new BlockGem(
-								Polydash.res.getTexture("ruby"));
-					} else {
-						gameState[i][j] = new BlockEmpty(
-								Polydash.res.getTexture("empty"));
-					}
-				}
-			}
-	}
+	// /**
+	// * Verifie si les condition de victoire sont remplies
+	// */
+	// private void checkWin() {
+	// if (nbGem == 0)
+	// for (int i = 0; i < Var.NBROW; i++) {
+	// for (int j = 0; j < Var.NBROW; j++) {
+	// if (i == 7 && j == 0) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 9 && j == 1) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 11 && j == 2) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 9 && j == 3) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 7 && j == 4) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 9 && j == 5) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 11 && j == 6) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 9 && j == 7) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 7 && j == 8) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 7 && j == 11) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 8 && j == 11) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 9 && j == 11) {
+	// gameState[i][j] = new Character(
+	// Polydash.res.getTexture("miner"));
+	// xCharacter = i;
+	// yCharacter = j;
+	// } else if (i == 10 && j == 11) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 11 && j == 11) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 7 && j == 14) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 8 && j == 14) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 9 && j == 14) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 10 && j == 14) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 11 && j == 14) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 8 && j == 15) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 9 && j == 16) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 10 && j == 17) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 10 && j == 18) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 7 && j == 18) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 8 && j == 18) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 9 && j == 18) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 10 && j == 18) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else if (i == 11 && j == 18) {
+	// gameState[i][j] = new BlockGem(
+	// Polydash.res.getTexture("ruby"));
+	// } else {
+	// gameState[i][j] = new BlockEmpty(
+	// Polydash.res.getTexture("empty"));
+	// }
+	// }
+	// }
+	// }
+	//
+	// /**
+	// * Verifie si les condition de défaite sont remplies
+	// */
+	// private void checkLose() {
+	// if (!alive) {
+	// for (int i = 0; i < Var.NBROW; i++) {
+	// for (int j = 0; j < Var.NBROW; j++) {
+	// gameState[i][j] = new BlockFix(
+	// Polydash.res.getTexture("fix_bloc"));
+	// }
+	// }
+	// }
+	// }
 
 	/**
-	 * Verifie si les condition de défaite sont remplies
+	 * 
+	 * @return gameState
 	 */
-	private void checkLose() {
-		if (!alive) {
-			for (int i = 0; i < Var.NBROW; i++) {
-				for (int j = 0; j < Var.NBROW; j++) {
-					gameState[i][j] = new BlockFix(
-							Polydash.res.getTexture("fix_bloc"));
-				}
-			}
-		}
-	}
-
 	public Block[][] getGameState() {
 		return gameState;
 	}
 
+	/**
+	 * 
+	 * @param gameState
+	 */
 	public void setGameState(Block[][] gameState) {
 		this.gameState = gameState;
 	}
 
+	/**
+	 * 
+	 * @return xCharacter
+	 */
 	public int getxCharacter() {
 		return xCharacter;
 	}
 
+	/**
+	 * 
+	 * @return yCharacter
+	 */
 	public int getyCharacter() {
 		return yCharacter;
 	}
 
+	/**
+	 * 
+	 * @param xCharacter
+	 */
 	public void setxCharacter(int xCharacter) {
 		this.xCharacter = xCharacter;
 	}
 
+	/**
+	 * 
+	 * @param yCharacter
+	 */
 	public void setyCharacter(int yCharacter) {
 		this.yCharacter = yCharacter;
 	}
 
+	/**
+	 * 
+	 * @return nbGem
+	 */
 	public int getNbGem() {
 		return nbGem;
 	}
 
+	/**
+	 * 
+	 * @param nbGem
+	 */
 	public void setNbGem(int nbGem) {
 		this.nbGem = nbGem;
 	}
 
+	/**
+	 * 
+	 * @return move
+	 */
+	public boolean isMove() {
+		return move;
+	}
+
+	/**
+	 * 
+	 * @param move
+	 */
+	public void setMove(boolean move) {
+		this.move = move;
+	}
 }

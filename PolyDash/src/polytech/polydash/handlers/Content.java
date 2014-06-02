@@ -38,6 +38,11 @@ public class Content {
 		loadTexture(path, key);
 	}
 
+	/**
+	 * Charge la texture dans la hashMap
+	 * @param path
+	 * @param key
+	 */
 	private void loadTexture(String path, String key) {
 		Texture tex = new Texture(Gdx.files.internal(path));
 		textures.put(key, tex);
