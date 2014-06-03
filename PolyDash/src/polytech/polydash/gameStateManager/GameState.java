@@ -130,7 +130,7 @@ public class GameState {
 				}
 			}
 		}
-		// this.checkWin();
+		 this.checkWin();
 		// this.checkLose();
 	}
 
@@ -348,6 +348,17 @@ public class GameState {
 	// /**
 	// * Verifie si les condition de victoire sont remplies
 	// */
+	private void checkWin() {
+	if(nbGem==0){
+		if(gameState[xCharacter][yCharacter] instanceof Character){
+			Character charac = (Character)gameState[xCharacter][yCharacter];
+			if(charac.isAlive()){
+				charac.setAlive(false);
+			}
+		}
+	}
+	}
+	
 	// private void checkWin() {
 	// if (nbGem == 0)
 	// for (int i = 0; i < Var.NBROW; i++) {
