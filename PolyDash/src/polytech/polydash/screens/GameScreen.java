@@ -1,6 +1,8 @@
 package polytech.polydash.screens;
 
 import polytech.polydash.draughtboardmanagement.Block;
+import polytech.polydash.draughtboardmanagement.Character;
+import polytech.polydash.gameStateManager.GameState;
 import polytech.polydash.main.Polydash;
 import polytech.polydash.utils.Var;
 
@@ -83,13 +85,15 @@ public class GameScreen implements Screen {
 		Block[][] grid = game.getGs().getGameState();
 
 		int x = Var.V_WIDTH / 2 - 32 * 10;
-		int y = Var.V_HEIGHT - 120;
+		int y = Var.V_HEIGHT - 95;
 		int iCharac = game.getGs().getxCharacter();
 		int jCharac = game.getGs().getyCharacter();
 
 		for (int i = 0; i < Var.NBROW; i++) {
 			for (int j = 0; j < Var.NBROW; j++) {
-				if (i == iCharac && j == jCharac) {
+				if(grid[i][j] instanceof Character){
+					Character c = (Character)grid[iCharac][jCharac];
+						if(c.isAlive()){	
 					if(game.getGs().isMove()) {
 						game.getBatch().draw(Polydash.res.getTexture("miner_move"), x, y);
 						try {
@@ -102,6 +106,9 @@ public class GameScreen implements Screen {
 					else{
 						game.getBatch().draw(Polydash.res.getTexture("miner"), x, y);
 					}
+						}
+				
+				
 					x = x + 32;
 				} else {
 					game.getBatch().draw(grid[i][j].getImg(), x, y);
@@ -110,6 +117,7 @@ public class GameScreen implements Screen {
 			}
 			x = Var.V_WIDTH / 2 - 32 * 10;
 			y = y - 32;
+		
 		}
 	}
 

@@ -1,5 +1,6 @@
 package polytech.polydash.gameStateManager;
 
+
 import polytech.polydash.draughtboardmanagement.Block;
 import polytech.polydash.draughtboardmanagement.BlockComposite;
 import polytech.polydash.draughtboardmanagement.BlockEmpty;
@@ -63,7 +64,6 @@ public class GameState {
 				}
 			}
 		}
-		Var.SCORE++;
 		this.setGameState(newGameState);
 	}
 
@@ -81,7 +81,6 @@ public class GameState {
 				}
 			}
 		}
-		Var.SCORE++;
 		this.setGameState(newGameState);
 	}
 
@@ -89,7 +88,13 @@ public class GameState {
 	 * Initie la rotation droite et vérifie l'état du jeu
 	 */
 	public void rightRotation() {
-		rightRotationGameState();
+		if(gameState[xCharacter][yCharacter] instanceof Character){
+			Character c = (Character)gameState[xCharacter][yCharacter];
+			if(c.isAlive()){
+				rightRotationGameState();
+				Var.SCORE++;
+			}
+		}
 		this.checkGameState();
 	}
 
@@ -97,7 +102,13 @@ public class GameState {
 	 * Initie la rotation gauche et vérifie l'état du jeu
 	 */	
 	public void leftRotation() {
-		leftRotationGameState();
+		if(gameState[xCharacter][yCharacter] instanceof Character){
+			Character c = (Character)gameState[xCharacter][yCharacter];
+			if(c.isAlive()){
+				leftRotationGameState();
+				Var.SCORE++;
+			}
+		}
 		this.checkGameState();
 	}
 
@@ -133,16 +144,18 @@ public class GameState {
 		move = true;
 		boolean move = false;
 		int x = xCharacter, y = yCharacter;
-		Block charac;
+		if(gameState[xCharacter][yCharacter] instanceof Character){
+			Character charac = (Character)gameState[xCharacter][yCharacter];
+			if(charac.isAlive()){
 		if (m == Var.Move.RIGHT) {
 			if (yCharacter + 1 < 20 && yCharacter + 1 >= 0) {
 				if (gameState[xCharacter][yCharacter + 1] instanceof BlockEmpty) {
 					y = yCharacter + 1;
-					Var.SCORE++;
+					//Var.SCORE++;
 					move = true;
 				} else if (gameState[xCharacter][yCharacter + 1] instanceof BlockGem) {
 					y = yCharacter + 1;
-					Var.SCORE++;
+					//Var.SCORE++;
 					this.nbGem--;
 					move = true;
 				} else if (yCharacter + 2 < 20
@@ -151,7 +164,7 @@ public class GameState {
 						&& gameState[xCharacter][yCharacter + 2] instanceof BlockEmpty) {
 					gameState[x][y + 2] = gameState[x][y + 1];
 					y = yCharacter + 1;
-					Var.SCORE++;
+					//Var.SCORE++;
 					move = true;
 				} else if (yCharacter + 2 < 20
 						&& yCharacter + 2 >= 0
@@ -160,7 +173,7 @@ public class GameState {
 					gameState[x][y + 2] = new BlockMovable(
 							Polydash.res.getTexture("mobile_bloc"));
 					y = yCharacter + 1;
-					Var.SCORE++;
+					//Var.SCORE++;
 					nbGem--;
 					move = true;
 				} else if (yCharacter + 2 < 20
@@ -173,7 +186,7 @@ public class GameState {
 					bc.addBlock(this.gameState[xCharacter][yCharacter + 2]);
 					gameState[x][y + 2] = bc;
 					y = yCharacter + 1;
-					Var.SCORE++;
+					//Var.SCORE++;
 					move = true;
 				}
 			}
@@ -181,11 +194,11 @@ public class GameState {
 			if (yCharacter - 1 < 20 && yCharacter - 1 >= 0) {
 				if (gameState[xCharacter][yCharacter - 1] instanceof BlockEmpty) {
 					y = yCharacter - 1;
-					Var.SCORE++;
+					//Var.SCORE++;
 					move = true;
 				} else if (gameState[xCharacter][yCharacter - 1] instanceof BlockGem) {
 					y = yCharacter - 1;
-					Var.SCORE++;
+					//Var.SCORE++;
 					this.nbGem--;
 					move = true;
 				} else if (yCharacter - 2 < 20
@@ -194,7 +207,7 @@ public class GameState {
 						&& gameState[xCharacter][yCharacter - 2] instanceof BlockEmpty) {
 					gameState[x][y - 2] = gameState[x][y - 1];
 					y = yCharacter - 1;
-					Var.SCORE++;
+					//Var.SCORE++;
 					move = true;
 				} else if (yCharacter - 2 < 20
 						&& yCharacter - 2 >= 0
@@ -203,7 +216,7 @@ public class GameState {
 					gameState[x][y - 2] = new BlockMovable(
 							Polydash.res.getTexture("mobile_bloc"));
 					y = yCharacter - 1;
-					Var.SCORE++;
+					//Var.SCORE++;
 					nbGem--;
 					move = true;
 				} else if (yCharacter - 2 < 20
@@ -216,7 +229,7 @@ public class GameState {
 					bc.addBlock(this.gameState[xCharacter][yCharacter - 2]);
 					gameState[x][y - 2] = bc;
 					y = yCharacter - 1;
-					Var.SCORE++;
+					//Var.SCORE++;
 					move = true;
 
 				}
@@ -225,11 +238,11 @@ public class GameState {
 			if (xCharacter + 1 < 20 && xCharacter + 1 >= 0) {
 				if (gameState[xCharacter + 1][yCharacter] instanceof BlockEmpty) {
 					x = xCharacter + 1;
-					Var.SCORE++;
+					//Var.SCORE++;
 					move = true;
 				} else if (gameState[xCharacter + 1][yCharacter] instanceof BlockGem) {
 					x = xCharacter + 1;
-					Var.SCORE++;
+					//Var.SCORE++;
 					this.nbGem--;
 					move = true;
 				}
@@ -238,18 +251,19 @@ public class GameState {
 			if (xCharacter - 1 < 20 && xCharacter - 1 >= 0) {
 				if (gameState[xCharacter - 1][yCharacter] instanceof BlockEmpty) {
 					x = xCharacter - 1;
-					Var.SCORE++;
+					//Var.SCORE++;
 					move = true;
 				} else if (gameState[xCharacter - 1][yCharacter] instanceof BlockGem) {
 					x = xCharacter - 1;
-					Var.SCORE++;
+					//Var.SCORE++;
 					this.nbGem--;
 					move = true;
+				}
 				}
 			}
 		}
 		if (move) {
-			charac = gameState[xCharacter][yCharacter];
+			Var.SCORE++;
 			gameState[x][y] = charac;
 			gameState[xCharacter][yCharacter] = new BlockEmpty(
 					Polydash.res.getTexture("empty"));
@@ -257,6 +271,7 @@ public class GameState {
 			yCharacter = y;
 			move = false;
 			this.checkGameState();
+		}
 		}
 	}
 
@@ -323,6 +338,7 @@ public class GameState {
 		if (player != null) {
 			if (!player.isAlive()) {
 				blockremplace = new BlockEmpty(Polydash.res.getTexture("empty"));
+				this.gameState[xCharacter][yCharacter] = new BlockEmpty(Polydash.res.getTexture("empty"));
 			}
 		}
 		this.gameState[i][j] = blockremplace;
